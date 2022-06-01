@@ -23,7 +23,14 @@ export default {
         }
     },
 
-     computed: {
+    props: {
+        page: {
+            type: String,
+            required: true,
+        },
+    },  
+
+    computed: {
         ...mapGetters(['getLanguage'])
     },
 

@@ -6,6 +6,8 @@ export const signInText = {
         signIn: 'Войти',
         forgotPassword: 'Забыли пароль?',
         signUp: 'Зарегистрироваться',
+        teacher: 'Учитель',
+        student: 'Студент',
     },
     KZ: {
         header: 'Кіру',
@@ -14,6 +16,8 @@ export const signInText = {
         signIn: 'Кіру',
         forgotPassword: 'Парольді қалдырып көр?',
         signUp: 'Тіркелу',
+        teacher: 'Учитель',
+        student: 'Студент',
     },
     EN: {
         header: 'Sign in',
@@ -22,5 +26,7 @@ export const signInText = {
         signIn: 'Sign in',
         forgotPassword: 'Forgot password?',
         signUp: 'Sign up',
+        teacher: 'Teacher',
+        student: 'Student',
     },
 }

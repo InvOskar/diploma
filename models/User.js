@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const teacherSchema = new Schema({
+const userSchema = new Schema({
     email: {
         unique: true,
         type: String
@@ -10,10 +10,13 @@ const teacherSchema = new Schema({
     firstName: String,
     lastName: String,
     dataOfBirth: String,
-
     workExperience: String,
     currentWork: String,
+    role: String,
+    listOfLessons: Array,
+    listOfArticles: Array,
+    rating: Number
 });
 
-const Teacher = mongoose.model('Teacher', teacherSchema); 
-module.exports = Teacher;
+const User = mongoose.model('User', userSchema); 
+module.exports = User;

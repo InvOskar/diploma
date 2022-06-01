@@ -73,4 +73,21 @@ export default {
 img {
   pointer-events: none;
 }
+.error>p{
+  color: red;
+  font-size: 22px;
+  animation: fadeIn 2s infinite linear;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
 </style>

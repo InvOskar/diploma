@@ -3,7 +3,7 @@
         <h1>{{ content.header }}</h1>
         <the-top-bar/>
         <the-scrollable-block>
-            <teacher-on-list v-for="(teacher, index) in content.teachers" :teacher="teacher" :key="index"/>
+            <teacher-on-list @click="goToProfile(teacher)" v-for="(teacher, index) in teachers" :teacher="teacher" :key="index"/>
         </the-scrollable-block>
     </div>
 </template>
@@ -14,13 +14,23 @@ import { teachersPageText } from './TeachersPage.js'
 import { mapGetters } from 'vuex'
 import TheScrollableBlock from '../TheScrollableBlock.vue'
 import TeacherOnList from '../TeacherOnList.vue'
+import UserService from '../../services/user.service';
+
+const userService = new UserService();
 
 export default {
     components: { TheTopBar, TeacherOnList, TheScrollableBlock },
     data() {
         return {
             content: teachersPageText.RU,
+            teachers: [],
         }
+    },
+
+    methods: {
+        goToProfile(teacher){
+            this.$router.push('/profile/' + teacher._id);
+        },
     },
 
     computed: {
@@ -31,6 +41,12 @@ export default {
         getLanguage(newLang){
             this.content = teachersPageText[newLang];
         }
+    },
+
+    mounted(){
+        userService.getUsers().then((res) => {
+            this.teachers = res;
+        });
     }
 }
 </script>

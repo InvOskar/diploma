@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{ user.firstName }} {{ user.lastName }} {{ user.currentWork }}
+        {{ user.firstName }} {{ user.lastName }}
     </div>
 </template>
 
@@ -12,12 +12,11 @@ const userService = new UserService();
 export default {
     data() { 
         return{
-            userId: this.$route.params.id,
             user: {},
         }
     },
     mounted(){
-        userService.getUserById(this.userId).then((res) => {
+        userService.getAuthUser().then((res) => {
             this.user = res;
         });
     }

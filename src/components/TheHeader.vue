@@ -7,13 +7,12 @@
             <div v-for="(item, index) in headerText.headerMenu" :key="index">
                 <p @click="goToPage(index)">{{ item }}</p>
             </div>
-            <div style="display: flex;" v-if="!isRegistered">
-                <p @click="$router.push('signIn')">{{ headerText.optionalMenu[1][0] }}</p>
-                <p @click="$router.push('signUp')">{{ headerText.optionalMenu[1][1] }}</p>
-            </div>
-            <div style="display: flex;" v-else>
-                <p @click="$router.push('profile')">{{ headerText.optionalMenu[0][0] }}</p>
-                <p @click="logout()">{{ headerText.optionalMenu[0][1] }}</p>
+            <div>
+                <p v-if="!isSigned" @click="$router.push('/signIn')">{{ headerText.optionalMenu[1][0] }}</p>
+                <p v-if="!isSigned" @click="$router.push('/signUp')">{{ headerText.optionalMenu[1][1] }}</p>
+
+                <p v-if="isSigned" @click="$router.push('/myProfile')">{{ headerText.optionalMenu[0][0] }}</p>
+                <p v-if="isSigned" @click="logout()">{{ headerText.optionalMenu[0][1] }}</p>
             </div>
         </div>
         <div class="lang-switch">
@@ -44,13 +43,13 @@ export default {
             headerText: headerText.RU,
             langMenu: false,
             lang: ['RU', 'KZ', 'EN'],
-            pages: ['articles', 'teachers', 'lessons', 'students'],
-            isRegistered: false,
+            pages: ['/articles', '/teachers', '/lessons', '/students'],
+            isSigned: false,
         }
     },
 
     methods: {
-        ...mapActions(['setLanguage']),
+        ...mapActions(['setLanguage', 'setIsSignedUp']),
 
         openLangMenu(){
             let arrow = this.$refs.arrow;
@@ -66,8 +65,8 @@ export default {
         },
 
         logout(){
-            this.isRegistered = false;
-            localStorage.clear;
+            localStorage.removeItem('token');
+            this.setIsSignedUp(false);
         },
          
         changeLanguages(lang){
@@ -77,33 +76,27 @@ export default {
 
         goToPage(index){
             this.$router.push(this.pages[index]);
-        }
+        },
     },
 
     computed: {
-        ...mapGetters(['getLanguage', 'isRegister'])
+        ...mapGetters(['getLanguage', 'isSignedUp', 'getIdByToken']),
     },
 
     watch: {
         getLanguage(newLang){
             this.headerText = headerText[newLang];
+        },
+        isSignedUp(newVal){
+            this.isSigned = newVal;
         }
     },
 
     created(){
-        if(localStorage.getItem('token') !== null){
-            this.isRegistered = true;
+        if(localStorage.getItem('token')!=null){
+            this.setIsSignedUp(true);
         }
     },
-    
-    mounted(){
-        axios.get('http://localhost:5000/user', {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token')
-            }
-        })
-    }
-
 }
 </script>
 
@@ -134,6 +127,10 @@ export default {
     display: flex;
     align-items: center;
     height: 100%;
+
+    &>div {
+        display: flex;
+    }
 
     &>div>p{
         padding: 0 20px;

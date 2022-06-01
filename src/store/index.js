@@ -4,10 +4,12 @@ export default createStore({
   state: {
     language: 'RU',
     isLesson: false,
+    isSignedUp: false,
   },
   getters: {
     getLanguage: state => state.language,
     isLesson: state => state.isLesson,
+    isSignedUp: state => state.isSignedUp,
   },
   mutations: {
     setLanguage(state, language) {
@@ -15,7 +17,10 @@ export default createStore({
     },
     setIsLesson(state, isLesson) {
       state.isLesson = isLesson;
-    }
+    },
+    setIsSignedUp(state, isSignedUp) {
+      state.isSignedUp = isSignedUp;
+    },
   },
   actions: {
     setLanguage({commit}, language) {
@@ -23,7 +28,10 @@ export default createStore({
     },
     setIsLesson({commit}, isLesson) {
       commit('setIsLesson', isLesson);
-    }
+    },
+    setIsSignedUp({commit}, isSignedUp) {
+      commit('setIsSignedUp', isSignedUp);
+    },
   },
   modules: {
   }

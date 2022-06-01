@@ -2,16 +2,18 @@
     <div class="signIn">
       <h1>{{ content.header }}</h1>
       <the-input-form :width="'30%'">
+        <div class="error">
+          <p>{{ error }}</p>
+        </div>
         <main-label>{{ content.email }}:</main-label>
         <main-input v-model="email" />
         <main-label>{{ content.password }}:</main-label>
-        <main-input type="password" v-model="password" />
+        <main-input type="password" v-model="password"></main-input>
         <main-button @click="login" :width="'150px'" :mt="'30px'">{{ content.signIn }}</main-button>
         <div class="shadow-line">
           <p>{{ content.forgotPassword }}</p>
-          <p>{{ content.signUp }}</p>
+          <p @click="$router.push('/signUp')">{{ content.signUp }}</p>
         </div>
-        {{error}}
       </the-input-form>
     </div>
 </template>
@@ -19,11 +21,14 @@
 <script>
 import MainInput from '../UI/MainInput.vue'
 import { signInText } from './SignIn'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import TheInputForm from '../TheInputForm.vue'
 import MainButton from '../UI/MainButton.vue'
 import MainLabel from '../UI/MainLabel.vue'
 import axios from 'axios'
+import AuthService from '../../services/auth.service'
+
+const authService = new AuthService();
 
 export default {
   components: { MainInput, TheInputForm, MainButton, MainLabel },
@@ -38,23 +43,31 @@ export default {
 
   methods: {
     login(){
-      let user = {
-        email: this.email,
-        password: this.password,
+      if(this.checkData()){
+        let user = {
+          email: this.email,
+          password: this.password,
+        }
+        authService.login(user)
+          .then(res => {
+              this.setIsSignedUp(true);
+              this.$router.push('/');
+          })
+          .catch(err => {
+            this.error = err;
+          })
       }
-      axios.post('http://localhost:5000/login', user)
-        .then(res => {
-          if(res.status === 200) {
-            localStorage.setItem('token', res.data.token)
-            // this.$store.dispatch('setUser', res.data.user)
-            this.$router.push('/')
-            
-          }
-        })
-        .catch(err => {
-          this.error = err.response.data.error;
-        })
-    }
+    },
+
+    checkData(){
+      if(this.email === '' || this.password === ''){
+        this.error = 'Fill in all the fields';
+        return false;
+      }
+      return true;
+    },
+
+    ...mapActions(['setIsSignedUp']),
   },
 
   computed: {
@@ -64,6 +77,13 @@ export default {
   watch: {
     getLanguage(newLang) {
       this.content = signInText[newLang];
+    },
+    error(newVal){
+      if(newVal!=''){
+        setTimeout(() => {
+          this.error = '';
+        }, 4000);
+      }
     }
   }
 
@@ -102,5 +122,37 @@ export default {
             color: #50BE95;
         }
     }
+}
+
+.choose{
+  display: flex;
+  justify-content: space-evenly;
+
+  gap: 70px;
+
+  &>div{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+}
+.radio-input{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+
+  border: 2px solid #2F4858;
+  transition: 0.2s all linear;
+  outline: none;
+    
+  cursor: pointer;
+
+}
+.radio-input:checked {
+  border: 6px solid #50BE95;
 }
 </style>

@@ -23,10 +23,6 @@ const routes = [
     component: () => import('../components/pages/TeachersPage.vue'),
   },
   {
-    path: '/students',
-    component: () => import('../components/pages/StudentsPage.vue'),
-  },
-  {
     path: '/signUp',
     component: () => import('../components/pages/SignUp.vue'),
   },
@@ -35,9 +31,12 @@ const routes = [
     component: () => import('../components/pages/SignIn.vue'),
   },
   {
+    path: '/myProfile',
+    component: () => import('../components/pages/MyProfile.vue'),
+  },
+  {
     path: '/profile/:id',
     component: () => import('../components/pages/ProfilePage.vue'),
-    props: true
   },
   {
     path: '/lessons',

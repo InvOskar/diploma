@@ -4,7 +4,7 @@
         <p>{{ teacher.dateOfBirth }}</p>
         <p>{{ teacher.workExperience }}</p>
         <p>{{ teacher.currentWork }}</p>
-        <p>{{ teacher.teacherRating }}</p>
+        <p>{{ teacher.rating }}</p>
     </div>
 </template>
 
