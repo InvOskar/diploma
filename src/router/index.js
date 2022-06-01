@@ -1,20 +1,53 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import MainPage from '../components/pages/MainPage.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    redirect: '/home'
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/home',
+    component: MainPage
+  },
+  {
+    path: '/articles',
+    component: () => import('../components/pages/ArticlesPage.vue')
+  },
+  {
+    path: '/article/:id',
+    component: () => import('../components/pages/ArticlePage.vue'),
+  },
+  {
+    path: '/teachers',
+    component: () => import('../components/pages/TeachersPage.vue'),
+  },
+  {
+    path: '/students',
+    component: () => import('../components/pages/StudentsPage.vue'),
+  },
+  {
+    path: '/signUp',
+    component: () => import('../components/pages/SignUp.vue'),
+  },
+  {
+    path: '/signIn',
+    component: () => import('../components/pages/SignIn.vue'),
+  },
+  {
+    path: '/profile/:id',
+    component: () => import('../components/pages/ProfilePage.vue'),
+    props: true
+  },
+  {
+    path: '/lessons',
+    component: () => import('../components/pages/LessonsPage.vue'),
+  },
+  {
+    path: '/lesson/:id',
+    component: () => import('../components/pages/LessonPage.vue'),
+    props: true
+  },
 ]
 
 const router = createRouter({
