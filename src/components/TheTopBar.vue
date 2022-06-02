@@ -23,12 +23,12 @@ export default {
         }
     },
 
-    props: {
-        page: {
-            type: String,
-            required: true,
-        },
-    },  
+    // props: {
+    //     page: {
+    //         type: String,
+    //         required: true,
+    //     },
+    // },  
 
     computed: {
         ...mapGetters(['getLanguage'])

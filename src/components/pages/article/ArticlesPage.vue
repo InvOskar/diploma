@@ -3,23 +3,23 @@
         <h1>{{ content.header }}</h1>
         <the-top-bar/>
         <the-scrollable-block>
-            <lesson-on-list v-for="lesson in content.lessons" :lesson="lesson" :key="lesson.id"/>
+            <article-on-list v-for="article in content.articles" :article="article" :key="article.id"/>
         </the-scrollable-block>
     </div>
 </template>
 
 <script>
-import TheTopBar from '../TheTopBar.vue'
-import { lessonsPageText } from './LessonsPage'
+import TheTopBar from '../../TheTopBar.vue'
+import { articlesPageText } from './ArticlesPage'
 import { mapGetters } from 'vuex'
-import TheScrollableBlock from '../TheScrollableBlock.vue'
-import LessonOnList from '../LessonOnList.vue'
+import TheScrollableBlock from '../../TheScrollableBlock.vue'
+import ArticleOnList from '../../ArticleOnList.vue'
 
 export default {
-    components: { TheTopBar, LessonOnList, TheScrollableBlock },
+    components: { TheTopBar, ArticleOnList, TheScrollableBlock },
     data() {
         return {
-            content: lessonsPageText.RU,
+            content: articlesPageText.RU,
         }
     },
 
@@ -29,7 +29,7 @@ export default {
 
     watch: {
         getLanguage(newLang){
-            this.content = lessonsPageText[newLang];
+            this.content = articlesPageText[newLang];
         }
     }
 }

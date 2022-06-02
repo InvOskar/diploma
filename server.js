@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const User = require('./models/User');
+const User = require('./src/models/User');
 const bcrypt = require('bcrypt');
 
 const app = express();
@@ -29,7 +29,7 @@ app.post('/signup', (req, res, next) => {
         password: bcrypt.hashSync(req.body.password, 10),
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        dataOfBirth: req.body.dataOfBirth,
+        dateOfBirth: req.body.dateOfBirth,
         workExperience: req.body.workExperience,
         currentWork: req.body.currentWork,
         role: req.body.role,

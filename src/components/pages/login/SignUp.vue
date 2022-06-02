@@ -19,8 +19,8 @@
               <main-input v-model="user.lastName"/>
             </div>
             <div class="part">
-              <main-label>{{ content.dataOfBirth }}:</main-label>
-              <main-input type="date" v-model="user.dataOfBirth"/>
+              <main-label>{{ content.dateOfBirth }}:</main-label>
+              <main-input type="date" v-model="user.dateOfBirth"/>
             </div>
             <div class="part">
               <main-label>{{ content.workExperience }}:</main-label>
@@ -41,15 +41,14 @@
 </template>
 
 <script>
-import axios from 'axios';
-import TheInputForm from '../TheInputForm.vue';
+import TheInputForm from '../../TheInputForm.vue';
 import { signUpText } from './SignUp'
 import { mapGetters, mapActions } from 'vuex'
-import MainRadioInput from '../UI/MainRadioInput.vue'
-import MainLabel from '../UI/MainLabel.vue'
-import MainInput from '../UI/MainInput.vue'
-import MainButton from '../UI/MainButton.vue'
-import AuthService from '../../services/auth.service';
+import MainRadioInput from '../../UI/MainRadioInput.vue'
+import MainLabel from '../../UI/MainLabel.vue'
+import MainInput from '../../UI/MainInput.vue'
+import MainButton from '../../UI/MainButton.vue'
+import AuthService from '../../../services/auth.service';
 
 const authService = new AuthService();
 
@@ -66,7 +65,7 @@ export default {
         password: "",
         firstName: "",
         lastName: "",
-        dataOfBirth: "",
+        dateOfBirth: "",
         currentWork: "",
         workExperience: "",
       },
@@ -89,7 +88,7 @@ export default {
     },
 
     checkData(){
-      if(this.user.email === '' || this.user.password === '' || this.user.firstName === '' || this.user.lastName === '' || this.user.dataOfBirth === '' || this.user.currentWork === '' || this.user.workExperience === ''){
+      if(this.user.email === '' || this.user.password === '' || this.user.firstName === '' || this.user.lastName === '' || this.user.dateOfBirth === '' || this.user.currentWork === '' || this.user.workExperience === ''){
         this.error = 'Fill in all the fields';
         return false;
       }

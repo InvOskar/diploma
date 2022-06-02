@@ -3,8 +3,6 @@ import axios from "axios";
 
 const HOST = apiEnv.HOST
 
-
-
 class UserService {
     getIdByToken(token){
         let base64Url = token.split('.')[1];
@@ -17,8 +15,6 @@ class UserService {
     async getAuthUser(){
         let token = localStorage.getItem('token');
         let userId = this.getIdByToken(token);
-        console.log(userId);
-        console.log(`${HOST}/user/${userId}`);
         return await axios.get(`${HOST}/user/${userId}`)
         .then(res => {
             let user = res.data;

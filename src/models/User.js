@@ -9,12 +9,12 @@ const userSchema = new Schema({
     password: String,
     firstName: String,
     lastName: String,
-    dataOfBirth: String,
+    dateOfBirth: String,
     workExperience: String,
     currentWork: String,
     role: String,
-    listOfLessons: Array,
-    listOfArticles: Array,
+    listOfLessons: [],
+    listOfArticles: [],
     rating: Number
 });
 

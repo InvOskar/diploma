@@ -19,14 +19,14 @@
 </template>
 
 <script>
-import MainInput from '../UI/MainInput.vue'
+import MainInput from '../../UI/MainInput.vue'
 import { signInText } from './SignIn'
 import { mapGetters, mapActions } from 'vuex'
-import TheInputForm from '../TheInputForm.vue'
-import MainButton from '../UI/MainButton.vue'
-import MainLabel from '../UI/MainLabel.vue'
+import TheInputForm from '../../TheInputForm.vue'
+import MainButton from '../../UI/MainButton.vue'
+import MainLabel from '../../UI/MainLabel.vue'
 import axios from 'axios'
-import AuthService from '../../services/auth.service'
+import AuthService from '../../../services/auth.service'
 
 const authService = new AuthService();
 

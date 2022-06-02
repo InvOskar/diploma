@@ -27,8 +27,10 @@ export default {
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     font-size: 20px;
+
 
     &:hover{
         cursor: pointer;

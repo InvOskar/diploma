@@ -1,11 +1,15 @@
 <template>
-    <div>
-        {{ user.firstName }} {{ user.lastName }} {{ user.currentWork }}
+    <div class="profile">
+        <div class="main-info">
+            <div></div>
+        </div>
+        <div class="lessons-list"></div>
+        <div class="articles-list"></div>
     </div>
 </template>
 
 <script>
-import UserService from '../../services/user.service'
+import UserService from '../../../services/user.service'
 
 const userService = new UserService();
 

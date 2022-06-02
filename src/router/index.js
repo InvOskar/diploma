@@ -12,11 +12,11 @@ const routes = [
   },
   {
     path: '/articles',
-    component: () => import('../components/pages/ArticlesPage.vue')
+    component: () => import('../components/pages/article/ArticlesPage.vue')
   },
   {
     path: '/article/:id',
-    component: () => import('../components/pages/ArticlePage.vue'),
+    component: () => import('../components/pages/article/ArticlePage.vue'),
   },
   {
     path: '/teachers',
@@ -24,27 +24,27 @@ const routes = [
   },
   {
     path: '/signUp',
-    component: () => import('../components/pages/SignUp.vue'),
+    component: () => import('../components/pages/login/SignUp.vue'),
   },
   {
     path: '/signIn',
-    component: () => import('../components/pages/SignIn.vue'),
+    component: () => import('../components/pages/login/SignIn.vue'),
   },
   {
     path: '/myProfile',
-    component: () => import('../components/pages/MyProfile.vue'),
+    component: () => import('../components/pages/profile/MyProfile.vue'),
   },
   {
     path: '/profile/:id',
-    component: () => import('../components/pages/ProfilePage.vue'),
+    component: () => import('../components/pages/profile/ProfilePage.vue'),
   },
   {
     path: '/lessons',
-    component: () => import('../components/pages/LessonsPage.vue'),
+    component: () => import('../components/pages/lesson/LessonsPage.vue'),
   },
   {
     path: '/lesson/:id',
-    component: () => import('../components/pages/LessonPage.vue'),
+    component: () => import('../components/pages/lesson/LessonPage.vue'),
     props: true
   },
 ]
