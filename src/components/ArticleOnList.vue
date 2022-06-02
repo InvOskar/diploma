@@ -1,8 +1,8 @@
 <template>
-    <div class="block" @click="$router.push('article'+article.id)" :article="article">
+    <div class="block">
         <div class="left">
             <div class="top-line">
-                <p class="topic">{{ article.topic }}</p>
+                <p class="topic">{{ article.title }}</p>
             </div>
             <div class="bottom-line">
                 <p>{{ keys[getLanguage][0] }}: {{ article.author }}</p>

@@ -1,24 +1,25 @@
 <template>
     <div class="article">
-        <p class="topic">{{ article.topic }}</p>
-        <p class="text">{{ article.content }}</p>
-        <p class="author">{{ article.author }}</p>
-        <p class="date">{{ article.date }}</p>
+        <p class="topic">{{ article.title }}</p>
     </div>
 </template>
 
 <script>
-import articlesPageText from "./ArticlesPage.vue";
+import ArticleService from '../../../services/article.service'
+
+const articleService = new ArticleService();
+
 export default {
     data() {
         return {
-            articleId: this.$route.params.articleId,
             article: {},
         }
     },
-    created() {
-        this.article = articlesPageText.articles.find(article => article.id == this.articleId);
-    }
+    mounted(){
+        articleService.getArticleById(this.$route.params.id).then(res => {
+            this.article = res;
+        })
+    },
 }
 </script>
 

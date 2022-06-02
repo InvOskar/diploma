@@ -20,7 +20,7 @@
             </div>
             <div class="part">
               <main-label>{{ content.dateOfBirth }}:</main-label>
-              <main-input type="date" v-model="user.dateOfBirth"/>
+              <main-input type="date" v-model="dateOfBirth"/>
             </div>
             <div class="part">
               <main-label>{{ content.workExperience }}:</main-label>
@@ -65,10 +65,10 @@ export default {
         password: "",
         firstName: "",
         lastName: "",
-        dateOfBirth: "",
         currentWork: "",
         workExperience: "",
       },
+      dateOfBirth: "",
       error: '',
     }
   },
@@ -80,7 +80,8 @@ export default {
 
     signUp(){
       if(this.checkData()){
-        authService.register({...this.user}).then((res) => {
+        let date = this.dateOfBirth.split('-').reverse().join('-');
+        authService.register({...this.user, dateOfBirth: date}).then((res) => {
             this.setIsSignedUp(true);
             this.$router.push('/');
         });

@@ -1,0 +1,32 @@
+export const articleCreate = {
+    RU: {
+        lang: 'Выберите язык',
+        title: 'Создать статью',
+        article: 'Статья',
+        articleTitle: 'Тема статьи',
+        articleSubtitle: 'Подзаголовок',
+        articleParagraph: 'Параграф',
+        addParagraph: 'Добавить параграф',
+        createArticle: 'Опубликовать статью',
+    },
+    KZ: {
+        lang: 'Тілді таңдаңыз',
+        title: 'Статьяны қосу',
+        article: 'Статья',
+        articleTitle: 'Статьяның темасы',
+        articleSubtitle: 'Подзаголовок',
+        articleParagraph: 'Параграф',
+        addParagraph: 'Параграфті қосу',
+        createArticle: 'Статьяны қосу',
+    },
+    EN: {
+        lang: 'Select language',
+        title: 'Create article',
+        article: 'Article',
+        articleTitle: 'Article title',
+        articleSubtitle: 'Subtitle',
+        articleParagraph: 'Paragraph',
+        addParagraph: 'Add paragraph',
+        createArticle: 'Publish article',
+    },
+}

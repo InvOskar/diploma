@@ -1,0 +1,205 @@
+<template>
+    <div class="create-article">
+        <h1> {{ text.title }} </h1>
+        <the-scrollable-block :width="'90%'" :height="'800px'">
+            <div class="lang">
+                <p>{{ text.lang }}</p>
+                <div>
+                    <div><input class="radio-input" type="radio" value="RU" v-model="lang">RU</div>
+                    <div><input class="radio-input" type="radio" value="KZ" v-model="lang">KZ</div>
+                    <div><input class="radio-input" type="radio" value="EN" v-model="lang">EN</div>
+                </div>
+            </div>
+            <div class="title">
+                <main-input class="maintitle" :width="'90%'" :height="'300px'" :placeholder="`${ text.articleTitle }`" v-model="title" />
+                <main-input class="subtitle" :width="'90%'" :height="'300px'" :placeholder="`${ text.articleSubtitle }`" v-model="subtitle" />
+            </div>
+            <div class="content">
+                <div class="paragraph" v-for="i in paragraphCounter" :key="i">
+                    <minus-button class="minus" @click="deleteParagraph(i)"></minus-button>
+                    <textarea :placeholder="`${ text.articleParagraph } ${i}`" v-model="content[i-1]"></textarea>
+                </div>
+                <plus-button @click="addParagraph"></plus-button>
+                <main-button @click="createArticle">{{ text.createArticle }}</main-button>
+                <p class="error">{{ error }}</p>
+            </div>
+        </the-scrollable-block>
+    </div>
+</template>
+
+<script>
+import TheScrollableBlock from '../../TheScrollableBlock.vue'
+import MainButton from '../../UI/MainButton.vue'
+import MainInput from '../../UI/MainInput.vue'
+import MinusButton from '../../UI/MinusButton.vue'
+import PlusButton from '../../UI/PlusButton.vue'
+import { articleCreate } from "./CreateArticle"
+import ArticleService from '../../../services/article.service'
+import UserService from '../../../services/user.service'
+
+const articleService = new ArticleService();
+const userService = new UserService();
+
+export default {
+  components: { TheScrollableBlock, MainInput, PlusButton, MinusButton, MainButton },
+    data() {
+        return {
+            text: articleCreate.RU,
+            title: "",
+            subtitle: "",
+            content: [""],
+            paragraphCounter: 1,
+            user: {},
+            lang: "",
+            error: "",
+        }
+    },
+
+    methods: {
+        addParagraph() {
+            this.content.push("");
+            this.paragraphCounter++;
+        },
+
+        deleteParagraph(i) {
+            this.content.splice(i-1, 1);
+            this.paragraphCounter--;
+        },
+
+        createArticle(){
+            let currentDate = new Date();
+            let date = currentDate.getDate() + "." + (currentDate.getMonth() + 1) + "." + currentDate.getFullYear();
+            let author = this.user.firstName + " " + this.user.lastName;
+            let article = {
+                title: this.title,
+                subtitle: this.subtitle,
+                content: this.content,
+                author: author,
+                authorId: this.user._id,
+                lang: this.lang,
+                date: date,
+            }
+            articleService.createArticle(article)
+                .then(res => {
+                    this.$router.push('/articles');
+                })
+                .catch(err => {
+                    this.error = err;
+                })
+        }
+    },
+
+    mounted(){
+        userService.getAuthUser().then((res) => {
+            this.user = res;
+        });
+    },
+
+    watch(){
+        
+    },
+}
+</script>
+
+<style lang="scss" scoped>
+.create-article{
+    text-align: center;
+}
+h1{ 
+    padding: 40px 0;
+}
+.lang{
+    font-size: 22px;
+
+    &>p{
+        padding-bottom: 10px;
+        font-weight: bold;
+    }
+
+    &>div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+}
+.radio-input{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+
+  border: 2px solid #2F4858;
+  transition: 0.2s all linear;
+  outline: none;
+
+  margin-right: 5px;
+    
+  cursor: pointer;
+
+}
+.radio-input:checked {
+  border: 6px solid #50BE95;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+.title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+input, textarea{
+    &::placeholder{
+        font-style: italic;
+    }
+}
+.maintitle{
+    font-size: 26px;
+    font-weight: 700;
+}
+.subtitle{
+    font-size: 16px;
+    font-weight: 400;
+
+    color: grey;
+}
+
+textarea{
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    font-weight: 400;
+    background: transparent;
+    border-bottom: 3px solid #50BE95;
+    border-right: 3px solid #50BE95;
+
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    padding: 8px;
+    box-shadow: 2px 2px 6px grey;
+}
+.paragraph{
+    width: 90%;
+    height: 300px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 20px;
+}
+</style>

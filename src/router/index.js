@@ -19,6 +19,10 @@ const routes = [
     component: () => import('../components/pages/article/ArticlePage.vue'),
   },
   {
+    path: '/article/create',
+    component: () => import('../components/pages/article/CreateArticle.vue'),
+  },
+  {
     path: '/teachers',
     component: () => import('../components/pages/TeachersPage.vue'),
   },

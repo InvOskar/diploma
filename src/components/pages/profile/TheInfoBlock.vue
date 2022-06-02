@@ -1,5 +1,8 @@
 <template>
     <div class="block">
+        <div class="img">
+
+        </div>
         <p>{{ user.firstName }} {{ user.lastName }}</p>
         <p>{{ user.email }}</p>
         <p>{{ user.dateOfBirth }}</p>

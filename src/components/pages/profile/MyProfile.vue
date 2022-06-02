@@ -2,8 +2,9 @@
     <div class="my-profile">
         <the-info-block :user="user"></the-info-block>
         <div class="lists">
-            <the-articles-list></the-articles-list>
-            <the-lessons-list></the-lessons-list>
+            <the-articles-list :user="user"></the-articles-list>
+            <!-- <the-lessons-list :user="user"></the-lessons-list> -->
+            <asyncArticleList :user="user"></asyncArticleList>
         </div>
     </div>
 </template>
@@ -13,11 +14,21 @@ import TheInfoBlock from './TheInfoBlock.vue'
 import TheArticlesList from './TheArticlesList.vue'
 import TheLessonsList from './TheLessonsList.vue'
 import UserService from '../../../services/user.service'
+import { defineAsyncComponent } from 'vue'
+
+
 
 const userService = new UserService();
 
 export default {
-    components: { TheInfoBlock, TheArticlesList, TheLessonsList },
+    components: { 
+        TheInfoBlock, 
+        TheArticlesList, 
+        TheLessonsList,
+        asyncArticleList: defineAsyncComponent(() => 
+            import('./TheArticlesList.vue')
+        ),
+    },
 
     data() { 
         return{

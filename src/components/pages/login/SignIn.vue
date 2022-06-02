@@ -25,7 +25,6 @@ import { mapGetters, mapActions } from 'vuex'
 import TheInputForm from '../../TheInputForm.vue'
 import MainButton from '../../UI/MainButton.vue'
 import MainLabel from '../../UI/MainLabel.vue'
-import axios from 'axios'
 import AuthService from '../../../services/auth.service'
 
 const authService = new AuthService();
@@ -135,24 +134,5 @@ export default {
     gap: 20px;
     align-items: center;
   }
-}
-.radio-input{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-
-  border-radius: 50%;
-  width: 16px;
-  height: 16px;
-
-  border: 2px solid #2F4858;
-  transition: 0.2s all linear;
-  outline: none;
-    
-  cursor: pointer;
-
-}
-.radio-input:checked {
-  border: 6px solid #50BE95;
 }
 </style>

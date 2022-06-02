@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const User = require('./src/models/User');
+const Article = require('./src/models/Article');
 const bcrypt = require('bcrypt');
 
 const app = express();
@@ -22,7 +23,7 @@ app.listen(port, (err) => {
     console.log(`Server started on port ${port}`);
 });
 
-//routes
+//user
 app.post('/signup', (req, res, next) => {
     const user = new User({
         email: req.body.email,
@@ -76,7 +77,6 @@ app.post('/login', (req, res, next) => {
     });
 })
 
-
 app.get('/user/:id', (req, res, next) => {
     User.findById(req.params.id)
     .then(user => {
@@ -95,3 +95,85 @@ app.get('/users', (req, res, next) => {
         res.json(users);
     });
 })
+
+//article
+app.post('/article', (req, res, next) => {
+    const article = new Article({
+        title: req.body.title,
+        subtitle: req.body.subtitle,
+        content: req.body.content,
+        lang: req.body.lang,
+        author: req.body.author,
+        authorId: req.body.authorId,
+        date: req.body.date,
+        rating: 4.0
+    });
+    article.save((err) => {
+        if(err) {
+            return res.status(400).json({
+                title: 'Error',
+                error: err
+            })
+        }
+        return res.status(200).json({
+            title: 'Success'
+        })
+    });
+    User.findByIdAndUpdate(req.body.authorId, {$push: {listOfArticles: article._id}}, {new: true}, (err, user) => {
+        if(err) {
+            console.log(err)
+        }else{
+            console.log(user.listOfArticles)
+        }
+    });  
+})
+
+app.get('/article/:id', (req, res, next) => {
+    Article.findById(req.params.id)
+    .then(article => {
+        if(!article) { return res.status(404).end(); }
+        return res.status(200).json(article);
+    })
+    .catch(err => next(err));
+})
+
+app.get('/articles/:id', (req, res, next) => {
+    Article.find({authorId: req.params.id}, (err, articles) => {
+        if(err){
+            res.send(err);
+            next();
+        }
+        return res.json(articles);
+    });
+})
+
+app.get('/articles', (req, res, next) => {
+    Article.find({}, (err, articles) => {
+        if(err){
+            res.send(err);
+            next();
+        }
+        res.json(articles);
+    });
+})
+
+app.delete('/article/:id', (req, res, next) => {
+    Article.findByIdAndRemove(req.params.id, (err, article) => {
+        if(err) {
+            res.send(err);
+            next();
+        }
+        res.json(article);
+    });
+})
+
+app.put('/article/:id', (req, res, next) => {
+    Article.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, article) => {
+        if(err) {
+            res.send(err);
+            next();
+        }
+        res.json(article);
+    });
+})
+
