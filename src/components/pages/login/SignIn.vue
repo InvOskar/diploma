@@ -77,6 +77,7 @@ export default {
     getLanguage(newLang) {
       this.content = signInText[newLang];
     },
+
     error(newVal){
       if(newVal!=''){
         setTimeout(() => {
@@ -84,8 +85,8 @@ export default {
         }, 4000);
       }
     }
-  }
 
+  }
 }
 </script>
 

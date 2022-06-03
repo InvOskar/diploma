@@ -3,8 +3,7 @@
         <the-info-block :user="user"></the-info-block>
         <div class="lists">
             <the-articles-list :user="user"></the-articles-list>
-            <!-- <the-lessons-list :user="user"></the-lessons-list> -->
-            <asyncArticleList :user="user"></asyncArticleList>
+            <the-lessons-list :user="user"></the-lessons-list>
         </div>
     </div>
 </template>
@@ -14,33 +13,23 @@ import TheInfoBlock from './TheInfoBlock.vue'
 import TheArticlesList from './TheArticlesList.vue'
 import TheLessonsList from './TheLessonsList.vue'
 import UserService from '../../../services/user.service'
-import { defineAsyncComponent } from 'vue'
-
-
 
 const userService = new UserService();
 
 export default {
-    components: { 
-        TheInfoBlock, 
-        TheArticlesList, 
-        TheLessonsList,
-        asyncArticleList: defineAsyncComponent(() => 
-            import('./TheArticlesList.vue')
-        ),
-    },
+    components: { TheInfoBlock, TheArticlesList, TheLessonsList },
 
     data() { 
         return{
             user: {},
         }
     },
+    
     mounted(){
         userService.getAuthUser().then((res) => {
             this.user = res;
         });
     }
-
 }
 </script>
 
@@ -57,6 +46,6 @@ export default {
 }
 .lists{
     display: grid;
-    grid-gap: 50px;
+    grid-gap: 30px;
 }
 </style>

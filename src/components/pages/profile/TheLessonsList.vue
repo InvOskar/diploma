@@ -20,6 +20,6 @@ export default {
     width: 1000px;
     height: 450px;
 
-    box-shadow: 7px 7px 7px #ccc;
+    box-shadow: 0px 7px 35px rgba(80, 190, 149, 0.5);
 }
 </style>

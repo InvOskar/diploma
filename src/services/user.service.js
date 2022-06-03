@@ -35,6 +35,13 @@ class UserService {
             return users;
         });
     }
+    async updateUser(user){
+        return await axios.put(`${HOST}/user`, user)
+        .then(res => {
+            let user = res.data;
+            return user;
+        });
+    }
 }
 
 export default UserService;

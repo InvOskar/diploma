@@ -21,7 +21,9 @@
                 </div>
                 <plus-button @click="addParagraph"></plus-button>
                 <main-button @click="createArticle">{{ text.createArticle }}</main-button>
-                <p class="error">{{ error }}</p>
+                <div class="error">
+                    <p>{{ error }}</p>
+                </div>
             </div>
         </the-scrollable-block>
     </div>
@@ -33,7 +35,8 @@ import MainButton from '../../UI/MainButton.vue'
 import MainInput from '../../UI/MainInput.vue'
 import MinusButton from '../../UI/MinusButton.vue'
 import PlusButton from '../../UI/PlusButton.vue'
-import { articleCreate } from "./CreateArticle"
+import { articlesPageText } from "./ArticlesPage";
+import { mapGetters } from 'vuex'
 import ArticleService from '../../../services/article.service'
 import UserService from '../../../services/user.service'
 
@@ -44,7 +47,7 @@ export default {
   components: { TheScrollableBlock, MainInput, PlusButton, MinusButton, MainButton },
     data() {
         return {
-            text: articleCreate.RU,
+            text: articlesPageText.RU.createArticle,
             title: "",
             subtitle: "",
             content: [""],
@@ -67,26 +70,51 @@ export default {
         },
 
         createArticle(){
-            let currentDate = new Date();
-            let date = currentDate.getDate() + "." + (currentDate.getMonth() + 1) + "." + currentDate.getFullYear();
-            let author = this.user.firstName + " " + this.user.lastName;
-            let article = {
-                title: this.title,
-                subtitle: this.subtitle,
-                content: this.content,
-                author: author,
-                authorId: this.user._id,
-                lang: this.lang,
-                date: date,
+            console.log(this.checkData());
+            if(this.checkData()){
+                let currentDate = new Date();
+                let date = currentDate.getDate() + "." + (currentDate.getMonth() + 1) + "." + currentDate.getFullYear();
+                let author = this.user.firstName + " " + this.user.lastName;
+                let article = {
+                    title: this.title,
+                    subtitle: this.subtitle,
+                    content: this.content,
+                    author: author,
+                    authorId: this.user._id,
+                    lang: this.lang,
+                    date: date,
+                }
+                articleService.createArticle(article)
+                    .then(res => {
+                        this.$router.push('/articles');
+                    })
+                    .catch(err => {
+                        this.error = err;
+                    })
             }
-            articleService.createArticle(article)
-                .then(res => {
-                    this.$router.push('/articles');
-                })
-                .catch(err => {
-                    this.error = err;
-                })
-        }
+        },
+
+        checkData(){
+            if(this.title.length < 1){
+                this.error = "Введите название статьи";
+                return false;
+            }
+            if(this.subtitle.length < 1){
+                this.error = "Введите подзаголовок статьи";
+                return false;
+            }
+            this.content.forEach(paragraph => {
+                if(paragraph.length < 1){
+                    this.error = "Введите текст параграфа";
+                    return false;
+                }
+            });
+            if(this.lang===""){
+                this.error = "Выберите язык";
+                return false;
+            }
+            return true;
+        },
     },
 
     mounted(){
@@ -95,9 +123,15 @@ export default {
         });
     },
 
-    watch(){
-        
+    computed: {
+        ...mapGetters(['getLanguage'])
     },
+
+    watch: {
+        getLanguage(newLang){
+            this.text = articlesPageText[newLang].createArticle;
+        }
+    }
 }
 </script>
 

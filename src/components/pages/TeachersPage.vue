@@ -2,9 +2,12 @@
     <div class="articles">
         <h1>{{ content.header }}</h1>
         <the-top-bar/>
-        <the-scrollable-block>
+        <the-scrollable-block v-if="teachers.length>0">
             <teacher-on-list @click="goToProfile(teacher)" v-for="(teacher, index) in teachers" :teacher="teacher" :key="index"/>
         </the-scrollable-block>
+        <div class="empty-text" v-else>
+            <p>{{ content.emptyText }}</p>
+        </div>
     </div>
 </template>
 
@@ -61,5 +64,10 @@ export default {
     gap: 50px;
 
     margin-top: 40px;
+}
+.empty-text {
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
 }
 </style>

@@ -12,7 +12,7 @@ const userSchema = new Schema({
     dateOfBirth: String,
     workExperience: String,
     currentWork: String,
-    role: String,
+    detailInfo: String,
     listOfLessons: [],
     listOfArticles: [],
     rating: Number

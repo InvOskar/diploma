@@ -33,7 +33,7 @@ app.post('/signup', (req, res, next) => {
         dateOfBirth: req.body.dateOfBirth,
         workExperience: req.body.workExperience,
         currentWork: req.body.currentWork,
-        role: req.body.role,
+        detailInfo: "",
         listOfLessons: [],
         listOfArticles: [],
         rating: 4.5
@@ -93,6 +93,16 @@ app.get('/users', (req, res, next) => {
             next();
         }
         res.json(users);
+    });
+})
+
+app.put('/user', (req, res, next) => {
+    User.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, user) => {
+        if(err) {
+            res.send(err);
+            next();
+        }
+        res.json(user);
     });
 })
 
@@ -167,8 +177,8 @@ app.delete('/article/:id', (req, res, next) => {
     });
 })
 
-app.put('/article/:id', (req, res, next) => {
-    Article.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, article) => {
+app.put('/article/update', (req, res, next) => {
+    Article.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, article) => {
         if(err) {
             res.send(err);
             next();

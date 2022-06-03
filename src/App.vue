@@ -90,4 +90,27 @@ img {
     opacity: 0.1;
   }
 }
+.scrollX{
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+.scrollX::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.scrollX::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #F5F5F5;
+}
+
+.scrollX::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #50BE95;
+}
 </style>

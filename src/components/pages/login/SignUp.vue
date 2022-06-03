@@ -43,7 +43,7 @@
 <script>
 import TheInputForm from '../../TheInputForm.vue';
 import { signUpText } from './SignUp'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import MainRadioInput from '../../UI/MainRadioInput.vue'
 import MainLabel from '../../UI/MainLabel.vue'
 import MainInput from '../../UI/MainInput.vue'
@@ -74,16 +74,11 @@ export default {
   },
 
   methods: {
-    ...mapActions({
-      setIsSignedUp: 'setIsSignedUp'
-    }),
-
     signUp(){
-      if(this.checkData()){
+      if(this.checkErrors()){
         let date = this.dateOfBirth.split('-').reverse().join('-');
         authService.register({...this.user, dateOfBirth: date}).then((res) => {
-            this.setIsSignedUp(true);
-            this.$router.push('/');
+            this.$router.push('/signIn');
         });
       }
     },
@@ -94,6 +89,58 @@ export default {
         return false;
       }
       return true;
+    },
+
+    isItEmail(){
+      let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+      if(reg.test(this.user.email) === false){
+        this.error = 'Enter a valid email address';
+        return false;
+      }
+      return true;
+    },
+
+    isItDateOfBirth(){
+      let reg = /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/;
+      if(reg.test(this.dateOfBirth) === false){
+        this.error = 'Enter a valid date of birth';
+        return false;
+      }
+      return true;
+    },
+
+    isItStrongPassword(){
+      let reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+      if(reg.test(this.user.password) === false){
+        this.error = 'Enter a strong password';
+        return false;
+      }
+      return true;
+    },
+
+    isItNumber(){
+      let reg = /^[0-9]+$/;
+      if(reg.test(this.user.workExperience) === false){
+        this.error = 'Enter a number';
+        return false;
+      }
+      return true;
+    },
+
+    isItValidName(){
+      let reg = /^[a-zA-Zа-яА-Я]+$/;
+      if(reg.test(this.user.firstName) === false || reg.test(this.user.lastName) === false){
+        this.error = 'Enter a valid name';
+        return false;
+      }
+      return true;
+    },
+
+    checkErrors(){
+      if(this.checkData && this.isItEmail() && this.isItDateOfBirth() && this.isItStrongPassword() && this.isItNumber() && this.isItValidName()){
+        return true;
+      }
+      return false;
     },
   },
 
@@ -112,7 +159,14 @@ export default {
           this.error = '';
         }, 4000);
       }
-    }
+    },
+
+    dateOfBirth(newVal){
+      if(newVal!=''){
+        this.dateOfBirth = newVal.split('-').reverse().join('-');
+      }
+    },
+
   }
 }
 </script>

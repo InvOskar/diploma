@@ -33,10 +33,10 @@ class ArticleService {
         });
     }
     async updateArticle(article){
-        return await axios.put(`${HOST}/article`, {...article})
+        return await axios.put(`${HOST}/article/update`, article)
         .then(res => {
-            let article = res.data;
-            return article;
+            let user = res.data;
+            return user;
         });
     }
     async deleteArticle(id){
