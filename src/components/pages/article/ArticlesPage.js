@@ -18,6 +18,7 @@ export const articlesPageText = {
             edit: 'Редактировать',
             save: 'Сохранить',
             lang: 'Язык',
+            assesment: 'Оценка',
         }
     },
     KZ: {
@@ -39,6 +40,7 @@ export const articlesPageText = {
             edit: 'Өзгерту',
             save: 'Сақтау',
             lang: 'Тілі',
+            assesment: 'Баға',
         }
     },
     EN: {
@@ -60,6 +62,7 @@ export const articlesPageText = {
             edit: 'Edit',
             save: 'Save',
             lang: 'Language',
+            assesment: 'Assesment',
         }
     },
 }

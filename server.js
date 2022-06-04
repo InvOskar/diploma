@@ -36,6 +36,8 @@ app.post('/signup', (req, res, next) => {
         detailInfo: "",
         listOfLessons: [],
         listOfArticles: [],
+        ratedArticles: [],
+        ratedLessons: [],
         rating: 4.5
     });
     user.save((err) => {
@@ -106,6 +108,16 @@ app.put('/user', (req, res, next) => {
     });
 })
 
+app.put('/user/rating', (req, res, next) => {
+    User.findByIdAndUpdate(req.body.userId, {$set: {rating: req.body.rating}}, {new: true}, (err, user) => {
+        if(err) {
+            res.send(err);
+            next();
+        }
+        res.json(user);
+    });
+})
+
 //article
 app.post('/article', (req, res, next) => {
     const article = new Article({
@@ -116,7 +128,13 @@ app.post('/article', (req, res, next) => {
         author: req.body.author,
         authorId: req.body.authorId,
         date: req.body.date,
-        rating: 4.0
+        assesments: [
+            {
+                userId: "default",
+                assesment: 4.5,
+            }
+        ],
+        rating: 4.5,
     });
     article.save((err) => {
         if(err) {
@@ -133,7 +151,7 @@ app.post('/article', (req, res, next) => {
         if(err) {
             console.log(err)
         }else{
-            console.log(user.listOfArticles)
+            console.log('success')
         }
     });  
 })
@@ -173,6 +191,13 @@ app.delete('/article/:id', (req, res, next) => {
             res.send(err);
             next();
         }
+        User.findByIdAndUpdate(article.authorId, {$pull: {listOfArticles: article._id, ratedArticles: article._id}}, {new: true}, (err, user) => {
+            if(err) {
+                console.log(err)
+            }else{
+                console.log('success');
+            }
+        });
         res.json(article);
     });
 })
@@ -184,6 +209,38 @@ app.put('/article/update', (req, res, next) => {
             next();
         }
         res.json(article);
+    });
+})
+
+app.put('/article/rating', (req, res, next) => {
+    let assesment = {
+        userId: req.body.userId,
+        assesment: req.body.rating
+    }
+    Article.findByIdAndUpdate(req.body.articleId, {$push: {assesments: assesment }}, {new: true}, (err, article) => {
+        if(err) {
+            res.send(err);
+            next();
+        }
+        User.findByIdAndUpdate(req.body.userId, {$push: { ratedArticles: article._id }}, {new: true}, (err, user) => {
+            if(err) {
+                console.log(err)
+            }else{
+                console.log('success');
+            }
+        });
+        let assesments = [];
+        article.assesments.forEach(assesment => {
+            assesments.push(assesment.assesment);
+        });
+        let avarage = assesments.reduce((a, b) => a + b, 0) / assesments.length;
+        Article.findByIdAndUpdate(req.body.articleId, {$set: {rating: avarage}}, {new: true}, (err, article) => {
+            if(err) {
+                res.send(err);
+                next();
+            }
+            res.json(article);
+        });
     });
 })
 

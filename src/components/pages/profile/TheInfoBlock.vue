@@ -9,30 +9,36 @@
         </div>
         <div class="underline">
             {{ content.email }}: 
-            <div contenteditable="true" @input="updateEmail($event.target.innerHTML)">
-                {{ user.email }}
+            <div :contenteditable="isContenteditable()" 
+                @input="updateEmail($event.target.innerHTML)"
+                v-html="user.email">
             </div>
         </div>
         <div class="underline" v-if="user.dateOfBirth!=null">
-            {{ content.dateOfBirth }}: {{ user.dateOfBirth.split('-').reverse().join('-') }}
+            {{ content.dateOfBirth }}: {{ user.dateOfBirth.split("-").reverse().join(".") }}
         </div>
         <div class="underline">
             {{ content.workExperience}}: 
-            <div contenteditable="true" @input="updateWorkExperience($event.target.innerHTML)">
-                {{ user.workExperience }}
+            <div :contenteditable="isContenteditable()" 
+                @input="updateWorkExperience($event.target.innerHTML)"
+                v-html="user.workExperience">
             </div>
             {{ content.years }}
         </div>
         <div class="underline">
             {{ content.currentWork}}: 
-            <div contenteditable="true" @input="updateCurrentWork($event.target.innerHTML)">
-                {{ user.currentWork }}
+            <div :contenteditable="isContenteditable()" 
+                @input="updateCurrentWork($event.target.innerHTML)"
+                v-html="user.currentWork">
             </div>
         </div>
-        <div class="textarea" contenteditable="true" @input="updateDetailInfo($event.target.innerHTML)" :data-text="`${ content.info }`">
-            {{ user.detailInfo }}
+        <div class="textarea" 
+            :contenteditable="isContenteditable()" 
+            @input="updateDetailInfo($event.target.innerHTML)" 
+            :data-text="`${ content.info }`"
+            v-html="user.detailInfo">
         </div>
-        <div class="save" @click="save">{{ content.save }}</div>
+        <div class="save" @click="save" v-if="isAuthor">{{ content.save }}</div>
     </div>
 </template>
 
@@ -57,10 +63,28 @@ export default {
         return {
             content: profilePageText.RU.infoBlock,
             newUser: {},
+            isAuthor: false,
         }
     },
 
     methods: {
+        isContenteditable(){
+            if(this.isAuthor){
+                return true;
+            }
+            return false;
+        },
+        checkIsAuthor(){
+            if(this.isSignedUp){
+                userService.getAuthUser().then(res => {
+                    let user = res;
+
+                    if(user._id === this.user._id){
+                        this.isAuthor = true;
+                    }
+                });
+            }
+        },
         updateEmail(str){
             this.newUser.email = str;
         },
@@ -79,11 +103,12 @@ export default {
     },
 
     updated() {
-        this.newUser = {...this.user};
+        this.newUser = {...this.user };
+        this.checkIsAuthor();
     },
 
     computed: {
-        ...mapGetters(['getLanguage'])
+        ...mapGetters(['getLanguage', 'isSignedUp'])
     },
 
     watch: {

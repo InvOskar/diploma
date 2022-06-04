@@ -10,12 +10,14 @@
                 <p>{{ keys[getLanguage][2] }}: {{ article.lang }}</p>
             </div>
         </div>
-        <div class="rating">{{ article.rating }}</div>
+        <div class="rating">{{ article.rating.toFixed(2) }}</div>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import { gsap } from 'gsap'
+
 export default {
     props:{
         article:{

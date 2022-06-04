@@ -1,12 +1,29 @@
 <template>
     <div class="top-bar">
         <div class="searcher">
-            <input type="text" class="searcher-input" placeholder="Search...">
+            <input type="text" 
+                class="searcher-input" 
+                placeholder="Search..."
+                v-model="search">
             <img src="@/assets/svg/search.svg" class="searcher"/>
         </div>
-        <div class="sort-options">
+        <div class="sort-options" v-if="page!='teachers'">
             <p class="sort">{{ topBarText.sort }}</p>
-            <p v-for="item in topBarText.sortOptions" :key="item" class="option">{{ item }}</p>
+            <p v-for="(item, index) in topBarText.sortOptions" 
+                :key="index" 
+                class="option" 
+                @click="clicked(index)">
+                {{ item }}
+            </p>
+        </div>
+        <div class="sort-options" v-else>
+            <p class="sort">{{ topBarText.sort }}</p>
+            <p v-for="(item, index) in topBarText.sortOptionsTeachers" 
+                :key="index" 
+                class="option" 
+                @click="clicked(index)">
+                {{ item }}
+            </p>
         </div>
     </div>
 </template>
@@ -20,15 +37,28 @@ export default {
     data() {
         return {
             topBarText: topBarText.RU,
+            isClicked: [false, false, false],
+            search: '',
         }
     },
 
-    // props: {
-    //     page: {
-    //         type: String,
-    //         required: true,
-    //     },
-    // },  
+    props: {
+        page: {
+            type: String,
+            required: true,
+        },
+    },  
+
+    methods: {
+        clicked(index){
+            this.isClicked[index] = !this.isClicked[index];
+            let item = {
+                id: index,
+                isClicked: this.isClicked[index],
+            }
+            this.$emit('sort', item);
+        }
+    },
 
     computed: {
         ...mapGetters(['getLanguage'])
@@ -37,15 +67,38 @@ export default {
     watch: {
         getLanguage(newLang){
             this.topBarText = topBarText[newLang];
+        },
+        search(newSearch){
+            this.$emit('search', newSearch);
         }
     },
 
     mounted() {
-        gsap.from('.top-bar', {
+        let tl = gsap.timeline();
+        tl.from('.top-bar', {
             duration: 1,
             opacity: 0,
             x: -300,
             ease: 'power3.out'
+        })
+        .from('.searcher', {
+            duration: 1,
+            opacity: 0,
+            x: -300,
+            ease: 'power3.out'
+        })
+        .from('.sort', {
+            duration: 1,
+            opacity: 0,
+            x: -300,
+            ease: 'elastic'
+        })
+        .from('.option',{
+            duration: 1,
+            opacity: 0,
+            x: 100,
+            stagger: 0.4,
+            ease: 'back'
         })
     }
 }

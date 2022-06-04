@@ -9,6 +9,7 @@ const articleSchema = new Schema({
     authorId: String,
     lang: String,
     date: String,
+    assesments: Array,
     rating: Number,
 });
 

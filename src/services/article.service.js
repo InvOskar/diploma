@@ -46,6 +46,13 @@ class ArticleService {
             return article;
         });
     }
+    async updateRating(item){
+        return await axios.put(`${HOST}/article/rating`, item)
+        .then(res => {
+            let article = res.data;
+            return article;
+        });
+    }
 }
 
 export default ArticleService;

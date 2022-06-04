@@ -11,7 +11,7 @@
                 <p v-if="!isSigned" @click="$router.push('/signIn')">{{ headerText.optionalMenu[1][0] }}</p>
                 <p v-if="!isSigned" @click="$router.push('/signUp')">{{ headerText.optionalMenu[1][1] }}</p>
 
-                <p v-if="isSigned" @click="$router.push('/myProfile')">{{ headerText.optionalMenu[0][0] }}</p>
+                <p v-if="isSigned" @click="$router.push('/profile/' + 1)">{{ headerText.optionalMenu[0][0] }}</p>
                 <p v-if="isSigned" @click="logout()">{{ headerText.optionalMenu[0][1] }}</p>
             </div>
         </div>
@@ -35,7 +35,6 @@
 <script>
 import { headerText } from './TheHeader.js'
 import { mapGetters, mapActions } from 'vuex'
-import axios from 'axios'
 
 export default {
     data() {
@@ -67,6 +66,7 @@ export default {
         logout(){
             localStorage.removeItem('token');
             this.setIsSignedUp(false);
+            this.$router.push('/');
         },
          
         changeLanguages(lang){
@@ -80,7 +80,7 @@ export default {
     },
 
     computed: {
-        ...mapGetters(['getLanguage', 'isSignedUp', 'getIdByToken']),
+        ...mapGetters(['getLanguage', 'isSignedUp']),
     },
 
     watch: {

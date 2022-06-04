@@ -2,6 +2,7 @@ export const profilePageText = {
     RU: {
         articleList: {
             title: 'Список статей',
+            emptyText: 'Статей нет',
         },
         infoBlock: {
             dateOfBirth: 'Дата рождения',

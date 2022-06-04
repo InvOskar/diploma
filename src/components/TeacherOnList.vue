@@ -1,10 +1,9 @@
 <template>
     <div class="block">
         <p class="name">{{ teacher.lastName }} {{ teacher.firstName }}</p>
-        <p>{{ teacher.dateOfBirth }}</p>
-        <p>{{ teacher.workExperience }}</p>
+        <p>{{ teacher.dateOfBirth.split("-").reverse().join(".") }}</p>
         <p>{{ teacher.currentWork }}</p>
-        <p>{{ teacher.rating }}</p>
+        <p class="name">{{ teacher.rating }}</p>
     </div>
 </template>
 
@@ -25,9 +24,9 @@ export default {
 
     padding: 20px;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
 
     font-size: 20px;
 
@@ -35,6 +34,9 @@ export default {
     &:hover{
         cursor: pointer;
     }
+}
+p{
+    text-align: center;
 }
 .name{
     font-size: 24px;

@@ -5,22 +5,35 @@
             <div class="lang">
                 <p>{{ text.lang }}</p>
                 <div>
-                    <div><input class="radio-input" type="radio" value="RU" v-model="lang">RU</div>
-                    <div><input class="radio-input" type="radio" value="KZ" v-model="lang">KZ</div>
-                    <div><input class="radio-input" type="radio" value="EN" v-model="lang">EN</div>
+                    <div v-for="language in languages" :key="language">
+                        <input class="radio-input" 
+                            type="radio" 
+                            :value="language" 
+                            v-model="lang">
+                        {{ language }}
+                    </div>
                 </div>
             </div>
             <div class="title">
-                <main-input class="maintitle" :width="'90%'" :height="'300px'" :placeholder="`${ text.articleTitle }`" v-model="title" />
-                <main-input class="subtitle" :width="'90%'" :height="'300px'" :placeholder="`${ text.articleSubtitle }`" v-model="subtitle" />
+                <main-input class="maintitle" 
+                    :width="'90%'" :height="'300px'" 
+                    :placeholder="`${ text.articleTitle }`" 
+                    v-model="title" />
+                <main-input class="subtitle" 
+                    :width="'90%'" :height="'300px'" 
+                    :placeholder="`${ text.articleSubtitle }`" 
+                    v-model="subtitle" />
             </div>
             <div class="content">
                 <div class="paragraph" v-for="i in paragraphCounter" :key="i">
-                    <minus-button class="minus" @click="deleteParagraph(i)"></minus-button>
-                    <textarea :placeholder="`${ text.articleParagraph } ${i}`" v-model="content[i-1]"></textarea>
+                    <minus-button class="minus" @click="deleteParagraph(i)" />
+                    <textarea :placeholder="`${ text.articleParagraph } ${i}`" 
+                        v-model="content[i-1]" />
                 </div>
-                <plus-button @click="addParagraph"></plus-button>
-                <main-button @click="createArticle">{{ text.createArticle }}</main-button>
+                <plus-button @click="addParagraph" />
+                <main-button @click="createArticle">
+                    {{ text.createArticle }}
+                </main-button>
                 <div class="error">
                     <p>{{ error }}</p>
                 </div>
@@ -55,6 +68,7 @@ export default {
             user: {},
             lang: "",
             error: "",
+            languages: ["RU", "KZ", "EN"],
         }
     },
 
@@ -70,7 +84,6 @@ export default {
         },
 
         createArticle(){
-            console.log(this.checkData());
             if(this.checkData()){
                 let currentDate = new Date();
                 let date = currentDate.getDate() + "." + (currentDate.getMonth() + 1) + "." + currentDate.getFullYear();

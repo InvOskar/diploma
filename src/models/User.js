@@ -9,12 +9,15 @@ const userSchema = new Schema({
     password: String,
     firstName: String,
     lastName: String,
+    // profileImage: Image,
     dateOfBirth: String,
     workExperience: String,
     currentWork: String,
     detailInfo: String,
     listOfLessons: [],
     listOfArticles: [],
+    ratedArticles: [],
+    ratedLessons: [],
     rating: Number
 });
 

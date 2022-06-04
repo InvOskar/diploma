@@ -1,14 +1,23 @@
 <template>
     <div class="article">
-        <p class="title" :contenteditable="isContenteditable()" @input="updateTitle($event.target.innerHTML)">{{ article.title }}</p>
-        <p class="subtitle" :contenteditable="isContenteditable()" @input="updateSubtitle($event.target.innerHTML)">{{ article.subtitle }}</p>
+        <p class="title" 
+            :contenteditable="isContenteditable()" 
+            @input="updateTitle($event.target.innerHTML)"
+            v-html="article.title">
+        </p>
+        <p class="subtitle" 
+            :contenteditable="isContenteditable()" 
+            @input="updateSubtitle($event.target.innerHTML)"
+            v-html="article.subtitle">
+        </p>
         <the-scrollable-block>
             <div class="content">
                 <p class="paragraph" 
-                v-for="(paragraph, i) in article.content" :key="i" 
-                :contenteditable="isContenteditable()"
-                @input="updateParagraph($event.target.innerHTML, i)"
-                v-html="paragraph">
+                    v-for="(paragraph, i) in article.content" 
+                    :key="i" 
+                    :contenteditable="isContenteditable()"
+                    @input="updateParagraph($event.target.innerHTML, i)"
+                    v-html="paragraph">
                 </p>
             </div>
         </the-scrollable-block>
@@ -17,7 +26,20 @@
             <p>{{ content.date }}: {{ article.date }}</p>
             <p>{{ content.lang }}: {{ article.lang}}</p>
         </div>
-        <main-button v-if="isAuthor" style="float: right; margin-right: 250px;" @click="saveArticle()">{{ content.save }}</main-button>
+        <main-button v-if="isAuthor" 
+            style="float: right; margin-right: 250px;" 
+            @click="saveArticle()">
+            {{ content.save }}
+        </main-button>
+        <div class="assesment" v-else-if="isSignedUp">
+            <p>{{ content.assesment }}: </p>
+            <div class="rating" 
+                v-for="i in 5" :key="i" 
+                @click="rate(i)" 
+                :class="{selected: i== rating, rated: isRated}">
+                {{ i }}
+            </div>
+        </div>
     </div>
 </template>
 
@@ -42,27 +64,50 @@ export default {
             content: articlesPageText.RU.articlePage,
             isAuthor: false,
             newArticle: {},
+            rating: null, 
+            isRated: false,
+            userId: null,
         }
     },
 
     methods: {
+        rate(i){
+            this.rating = i;
+            this.isRated = true;
+            let item = {
+                articleId: this.article._id,
+                userId: this.userId,
+                rating: i,
+            }
+            articleService.updateRating(item).then(() => {
+                this.isRated = true;
+            }).catch(() => {
+                this.isRated = false;
+            })
+        },
+
         currentArticle() {
             articleService.getArticleById(this.$route.params.id).then(res => {
                 this.article = res;
                 this.checkIsAuthor();
             });
         },
+
         checkIsAuthor(){
             if(this.isSignedUp){
                 userService.getAuthUser().then(res => {
                     let user = res;
-
+                    this.userId = user._id;
                     if(user._id === this.article.authorId){
                         this.isAuthor = true;
+                    }else if(user.ratedArticles.find(id => id === this.article._id)){
+                        this.isRated = true;
+                        this.rating = this.article.assesments.find(item => item.userId === user._id).assesment;
                     }
                 });
             }
         },
+
         isContenteditable(){
             if(this.isAuthor){
                 return true;
@@ -105,7 +150,7 @@ export default {
     },
 
     updated() {
-        this.newArticle = {...this.article};
+        this.newArticle = {...this.article };
     },
 
     computed: {
@@ -142,6 +187,10 @@ export default {
 
     font-size: 26px;
 }
+.paragraph{
+    margin-bottom: 20px;
+    text-indent: 40px;
+}
 .info {
     display: flex;
     align-items: center;
@@ -153,5 +202,45 @@ export default {
 
     font-size: 24px;
 
+}
+.assesment{
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+
+    float: right;
+    margin-right: 300px;
+
+    &>p{
+        font-size: 24px;
+        font-weight: bold;
+    }
+}
+.rating{
+    display: block;
+
+    border-bottom: 1px solid #50BE95;
+
+    cursor: pointer;
+
+    background: transparent;
+    padding: 10px;
+
+    font-size: 24px;
+    font-weight: bold;
+
+    &:hover{
+        background: #50BE95;
+        color: #fff;
+    }
+}
+.selected{
+    background: #50BE95;
+    color: #fff;
+}
+
+.rated{
+    pointer-events: none;
 }
 </style>

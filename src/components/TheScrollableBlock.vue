@@ -19,10 +19,10 @@ export default {
     },
     mounted() {
         gsap.from('.scrollable', {
-            delay: 1,
+            delay: 0.5,
             duration: 0.7,
             opacity: 0,
-            y: -100,
+            y: 100,
         });
     },
 }
