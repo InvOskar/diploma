@@ -1,5 +1,5 @@
 <template>
-    <div class="articles">
+    <div class="__page-block">
         <h1>{{ content.header }}</h1>
         <the-top-bar 
             :page="'teachers'"
@@ -23,7 +23,7 @@ import TheTopBar from '../TheTopBar.vue'
 import { teachersPageText } from './TeachersPage.js'
 import { mapGetters } from 'vuex'
 import TheScrollableBlock from '../TheScrollableBlock.vue'
-import TeacherOnList from '../TeacherOnList.vue'
+import TeacherOnList from './TeacherOnList.vue'
 import UserService from '../../services/user.service';
 
 const userService = new UserService();
@@ -85,21 +85,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-.articles{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    gap: 50px;
-
-    margin-top: 40px;
-}
-.empty-text {
-    font-size: 30px;
-    text-align: center;
-    font-weight: bold;
-}
-</style>

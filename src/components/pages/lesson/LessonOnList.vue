@@ -2,15 +2,15 @@
     <div class="block">
         <div class="left">
             <div class="top-line">
-                <p class="topic">{{ lesson.title }}</p>
+                <p class="topic"> lesson.title </p>
             </div>
             <div class="bottom-line">
-                <p>{{ keys[getLanguage][0] }}: {{ lesson.teacher }}</p>
-                <p>{{ keys[getLanguage][1] }}: {{ lesson.date }}</p>
-                <p>{{ keys[getLanguage][2] }}: {{ lesson.lang }}</p>
+                <p> lesson.teacher </p>
+                <p> lesson.date </p>
+                <p> lesson.lang </p>
             </div>
         </div>
-        <div class="rating">{{ lesson.rating }}</div>
+        <div class="rating"> lesson.rating </div>
     </div>
 </template>
 
@@ -25,11 +25,7 @@ export default {
     },
     data(){
         return{
-            keys: {
-                RU: ['Автор', 'Дата', 'Язык'],
-                KZ: ['Автор', 'Дата', 'Язык'],
-                EN: ['Author', 'Date', 'Language']
-            },
+            
         }
     },
     computed: {

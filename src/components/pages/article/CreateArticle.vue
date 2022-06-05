@@ -1,5 +1,5 @@
 <template>
-    <div class="create-article">
+    <div class="__page-block">
         <h1> {{ text.title }} </h1>
         <the-scrollable-block :width="'90%'" :height="'800px'">
             <div class="lang">
@@ -149,12 +149,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.create-article{
-    text-align: center;
-}
-h1{ 
-    padding: 40px 0;
-}
 .lang{
     font-size: 22px;
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="signUp">
+    <div class="__page-block">
         <h1>{{ content.header }}</h1>
         <the-input-form :width="width" :height="height">
           <div class="error">
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import TheInputForm from '../../TheInputForm.vue';
+import TheInputForm from './TheInputForm.vue';
 import { signUpText } from './SignUp'
 import { mapGetters } from 'vuex'
 import MainRadioInput from '../../UI/MainRadioInput.vue'
@@ -172,17 +172,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.signUp{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-
-    gap: 50px;
-
-    margin-top: 40px;
-}
 .part{
   display: flex;
   align-items: center;

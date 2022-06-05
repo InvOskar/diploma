@@ -3,7 +3,8 @@
         <p class="title">Список Уроков</p>
         <div class="card-list" >
             <plus-button
-                :width="'50px'" :height="'50px'" />
+                :width="'50px'" :height="'50px'" 
+                @click="$router.push('/lesson/create')"/>
         </div>
     </div>
 </template>

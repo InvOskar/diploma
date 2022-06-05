@@ -28,7 +28,6 @@ export default {
 
     beforeCreate() {
         if(this.$route.params.id==1){
-            console.log('user');
             userService.getAuthUser().then(res => {
                 this.$router.push(res._id);
                 this.user = res;

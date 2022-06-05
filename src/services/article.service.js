@@ -4,6 +4,13 @@ import axios from "axios";
 const HOST = apiEnv.HOST
 
 class ArticleService {
+    async createArticle(article){
+        return await axios.post(`${HOST}/article`, {...article})
+        .then(res => {
+            let article = res.data;
+            return article;
+        });
+    }
     async getArticles(){
         return await axios.get(`${HOST}/articles`)
         .then(res => {
@@ -23,13 +30,6 @@ class ArticleService {
         .then(res => {
             let articles = res.data;
             return articles;
-        });
-    }
-    async createArticle(article){
-        return await axios.post(`${HOST}/article`, {...article})
-        .then(res => {
-            let article = res.data;
-            return article;
         });
     }
     async updateArticle(article){

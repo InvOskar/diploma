@@ -1,5 +1,5 @@
 <template>
-    <div class="articles">
+    <div class="__page-block">
         <h1>{{ content.header }}</h1>
         <the-top-bar 
             :page="'articles'"
@@ -23,7 +23,7 @@ import TheTopBar from '../../TheTopBar.vue'
 import { articlesPageText } from './ArticlesPage'
 import { mapGetters } from 'vuex'
 import TheScrollableBlock from '../../TheScrollableBlock.vue'
-import ArticleOnList from '../../ArticleOnList.vue'
+import ArticleOnList from './ArticleOnList.vue'
 import ArticleService from '../../../services/article.service'
 import { gsap } from 'gsap'
 
@@ -92,21 +92,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-.articles{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    gap: 50px;
-
-    margin-top: 40px;
-}
-.empty-text {
-    font-size: 30px;
-    text-align: center;
-    font-weight: bold;
-}
-</style>

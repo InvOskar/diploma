@@ -1,5 +1,5 @@
 <template>
-    <div class="signIn">
+    <div class="__page-block">
       <h1>{{ content.header }}</h1>
       <the-input-form :width="'30%'">
         <div class="error">
@@ -9,7 +9,10 @@
         <main-input v-model="email" />
         <main-label>{{ content.password }}:</main-label>
         <main-input type="password" v-model="password"></main-input>
-        <main-button @click="login" :width="'150px'" :mt="'30px'">{{ content.signIn }}</main-button>
+        <main-button @click="login" 
+          :width="'150px'" :mt="'30px'">
+          {{ content.signIn }}
+        </main-button>
         <div class="shadow-line">
           <p>{{ content.forgotPassword }}</p>
           <p @click="$router.push('/signUp')">{{ content.signUp }}</p>
@@ -22,7 +25,7 @@
 import MainInput from '../../UI/MainInput.vue'
 import { signInText } from './SignIn'
 import { mapGetters, mapActions } from 'vuex'
-import TheInputForm from '../../TheInputForm.vue'
+import TheInputForm from './TheInputForm.vue'
 import MainButton from '../../UI/MainButton.vue'
 import MainLabel from '../../UI/MainLabel.vue'
 import AuthService from '../../../services/auth.service'
@@ -91,18 +94,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.signIn{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-
-    gap: 50px;
-
-    margin-top: 40px;
-}
-
 .shadow-line{
     display: flex;
     align-items: center;
@@ -122,18 +113,5 @@ export default {
             color: #50BE95;
         }
     }
-}
-
-.choose{
-  display: flex;
-  justify-content: space-evenly;
-
-  gap: 70px;
-
-  &>div{
-    display: flex;
-    gap: 20px;
-    align-items: center;
-  }
 }
 </style>

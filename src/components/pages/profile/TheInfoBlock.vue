@@ -44,7 +44,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import RatingBar from '../../RatingBar.vue'
+import RatingBar from './RatingBar.vue'
 import UserService from '../../../services/user.service'
 import { profilePageText } from './ProfilePage'
 

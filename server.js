@@ -5,6 +5,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const User = require('./src/models/User');
 const Article = require('./src/models/Article');
+const Lesson = require('./src/models/Lesson');
 const bcrypt = require('bcrypt');
 
 const app = express();
@@ -143,17 +144,17 @@ app.post('/article', (req, res, next) => {
                 error: err
             })
         }
+        User.findByIdAndUpdate(req.body.authorId, {$push: {listOfArticles: article._id}}, {new: true}, (err, user) => {
+            if(err) {
+                console.log(err)
+            }else{
+                console.log('success')
+            }
+        });  
         return res.status(200).json({
             title: 'Success'
         })
     });
-    User.findByIdAndUpdate(req.body.authorId, {$push: {listOfArticles: article._id}}, {new: true}, (err, user) => {
-        if(err) {
-            console.log(err)
-        }else{
-            console.log('success')
-        }
-    });  
 })
 
 app.get('/article/:id', (req, res, next) => {
@@ -241,6 +242,44 @@ app.put('/article/rating', (req, res, next) => {
             }
             res.json(article);
         });
+    });
+})
+
+//lesson
+app.post('/lesson', (req, res, next) => {
+    const lesson = new Lesson({
+        title: req.body.title,
+        description: req.body.description,
+        content: [],
+        lang: req.body.lang,
+        author: req.body.author,
+        authorId: req.body.authorId,
+        date: req.body.date,
+        assesments: [
+            {
+                userId: "default",
+                assesment: 4.5,
+            }
+        ],
+        rating: 4.5,
+    });
+    lesson.save((err) => {
+        if(err) {
+            return res.status(400).json({
+                title: 'Error',
+                error: err
+            })
+        }
+        return res.status(200).json({
+            title: 'Success'
+        })
+    });
+    User.findByIdAndUpdate(req.body.authorId, {$push: {listOfLessons: lesson._id}}, {new: true}, (err, user) => {
+        if(err) {
+            console.log(err)
+        }else{
+            console.log('success')
+        }
     });
 })
 

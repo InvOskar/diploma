@@ -13,10 +13,10 @@
 </template>
 
 <script>
-import MinusButton from './UI/MinusButton.vue';
+import MinusButton from '../../UI/MinusButton.vue';
 import { mapGetters } from "vuex";
-import ArticleService from '../services/article.service'
-import UserService from '../services/user.service'
+import ArticleService from '../../../services/article.service'
+import UserService from '../../../services/user.service'
 
 const artcileService = new ArticleService();
 const userService = new UserService();

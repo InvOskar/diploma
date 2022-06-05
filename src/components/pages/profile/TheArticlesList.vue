@@ -19,7 +19,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import TheArticleCard from '../../TheArticleCard.vue'
+import TheArticleCard from './TheArticleCard.vue'
 import PlusButton from '../../UI/PlusButton.vue'
 import { profilePageText } from './ProfilePage'
 import ArticleService from '../../../services/article.service'
