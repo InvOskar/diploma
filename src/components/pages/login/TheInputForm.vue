@@ -34,12 +34,9 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     gap: 20px;
 
     padding: 20px;
-
     box-shadow: 0px 7px 35px rgba(80, 190, 149, 0.5);
-    
 }
 </style>

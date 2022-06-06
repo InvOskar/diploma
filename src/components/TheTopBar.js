@@ -5,13 +5,13 @@ export const topBarText = {
         sortOptionsTeachers: ["Рейтингу", "Имени"],
     },
     KZ: {
-        sort: 'Сортировать по:', 
-        sortOptions: ["Рейтингу", "Дате", "Теме"],
-        sortOptionsTeachers: ["Рейтингу", "Имени"],
+        sort: 'Cұрыптау:', 
+        sortOptions: ["Рейтинг", "Күні", "Тақырып"],
+        sortOptionsTeachers: ["Рейтинг", "Аты"],
     },
     EN: {
         sort: 'Sort by:',
         sortOptions: ["Rating", "Date", "Topic"],
-        sortOptionsTeachers: ["Рейтингу", "Имени"],
+        sortOptionsTeachers: ["Rating", "Name"],
     },
 }

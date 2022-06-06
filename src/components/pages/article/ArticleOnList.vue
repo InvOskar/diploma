@@ -16,7 +16,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { gsap } from 'gsap'
 
 export default {
     props:{
@@ -25,6 +24,7 @@ export default {
             required:true
         }
     },
+
     data(){
         return{
             keys: {
@@ -34,6 +34,7 @@ export default {
             },
         }
     },
+
     computed: {
         ...mapGetters(['getLanguage'])
     },
@@ -64,8 +65,8 @@ export default {
     font-weight: 700;
 }
 .bottom-line {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
     width: 80%;
 

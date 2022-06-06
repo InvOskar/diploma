@@ -46,6 +46,7 @@ import PlusButton from '../../UI/PlusButton.vue';
 import MainButton from '../../UI/MainButton.vue';
 import MainInput from '../../UI/MainInput.vue';
 import { gsap } from 'gsap';
+import { mapGetters } from 'vuex';
 
 const commentService = new CommentService();
 const articleService = new ArticleService();
@@ -92,6 +93,7 @@ export default {
                     });
             }
         },
+
         getComments(){
             commentService.getCommentsByPostId(this.item._id).then(res => {
                 this.comments = res;
@@ -142,6 +144,10 @@ export default {
         },
     }, 
 
+    computed: {
+        ...mapGetters(['getLanguage']),
+    },
+
     mounted() {
         userService.getAuthUser().then(res => {
             this.user = res;
@@ -166,6 +172,12 @@ export default {
     updated() {
         this.getComments();
     },
+
+    watch: {
+        getLanguage(newLang) {
+            this.content = commentPageText[newLang].commentPage;
+        }
+    }
 }
 </script>
 

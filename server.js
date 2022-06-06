@@ -110,16 +110,6 @@ app.put('/user', (req, res, next) => {
     });
 })
 
-app.put('/user/rating', (req, res, next) => {
-    User.findByIdAndUpdate(req.body.id, {$set: {rating: req.body.newRating}}, {new: true}, (err, user) => {
-        if(err) {
-            res.send(err);
-            next();
-        }
-        res.json(user);
-    });
-})
-
 //article
 app.post('/article', (req, res, next) => {
     const article = new Article({
@@ -224,13 +214,6 @@ app.put('/article/rating', (req, res, next) => {
             res.send(err);
             next();
         }
-        User.findByIdAndUpdate(req.body.userId, {$push: { ratedArticles: article._id }}, {new: true}, (err, user) => {
-            if(err) {
-                console.log(err)
-            }else{
-                console.log('success');
-            }
-        });
         let assesments = [];
         article.assesments.forEach(assesment => {
             assesments.push(assesment.assesment);
@@ -242,6 +225,13 @@ app.put('/article/rating', (req, res, next) => {
                 next();
             }
             res.json(article);
+        });
+        User.findByIdAndUpdate(req.body.userId, {$push: { ratedArticles: article._id }}, {new: true}, (err, user) => {
+            if(err) {
+                console.log(err)
+            }else{
+                console.log('success');
+            }
         });
     });
 })
@@ -349,13 +339,6 @@ app.put('/lesson/rating', (req, res, next) => {
             res.send(err);
             next();
         }
-        User.findByIdAndUpdate(req.body.userId, {$push: { ratedLessons: lesson._id }}, {new: true}, (err, user) => {
-            if(err) {
-                console.log(err)
-            }else{
-                console.log('success');
-            }
-        });
         let assesments = [];
         lesson.assesments.forEach(assesment => {
             assesments.push(assesment.assesment);
@@ -367,6 +350,13 @@ app.put('/lesson/rating', (req, res, next) => {
                 next();
             }
             res.json(lesson);
+        });
+        User.findByIdAndUpdate(req.body.userId, {$push: { ratedLessons: lesson._id }}, {new: true}, (err, user) => {
+            if(err) {
+                console.log(err)
+            }else{
+                console.log('success');
+            }
         });
     });
 })

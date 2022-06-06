@@ -68,6 +68,7 @@ export default {
         getLanguage(newLang){
             this.topBarText = topBarText[newLang];
         },
+
         search(newSearch){
             this.$emit('search', newSearch);
         }
@@ -111,18 +112,14 @@ export default {
     align-items: center;
 
     height: 50px;
-
     border: 3px solid #50BE95;
-
     width: 70%;
     margin: auto;
-
     border-radius: 50px;
 }
 .searcher{
     width: 45%;
     height: 100%;
-
     margin-left: 50px;
 
     display: flex;
@@ -145,7 +142,6 @@ export default {
 
     width: 60%;
 }
-
 .sort-options {
     display: flex;
     align-items: center;

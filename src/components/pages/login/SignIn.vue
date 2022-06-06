@@ -88,7 +88,6 @@ export default {
         }, 4000);
       }
     }
-
   }
 }
 </script>
@@ -98,7 +97,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-
     width: 100%;
 
     margin-top: 20px;

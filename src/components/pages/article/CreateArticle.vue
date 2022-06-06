@@ -57,7 +57,8 @@ const articleService = new ArticleService();
 const userService = new UserService();
 
 export default {
-  components: { TheScrollableBlock, MainInput, PlusButton, MinusButton, MainButton },
+    components: { TheScrollableBlock, MainInput, PlusButton, MinusButton, MainButton },
+    
     data() {
         return {
             text: articlesPageText.RU.createArticle,
@@ -131,6 +132,7 @@ export default {
     },
 
     mounted(){
+        this.lang = this.getLanguage;
         userService.getAuthUser().then((res) => {
             this.user = res;
         });
@@ -180,7 +182,6 @@ export default {
   margin-right: 5px;
     
   cursor: pointer;
-
 }
 .radio-input:checked {
   border: 6px solid #50BE95;
@@ -199,11 +200,6 @@ export default {
     justify-content: center;
     gap: 20px;
 }
-input, textarea{
-    &::placeholder{
-        font-style: italic;
-    }
-}
 .maintitle{
     font-size: 26px;
     font-weight: 700;
@@ -213,34 +209,5 @@ input, textarea{
     font-weight: 400;
 
     color: grey;
-}
-
-textarea{
-    width: 100%;
-    height: 100%;
-    resize: none;
-    border: none;
-    outline: none;
-    font-size: 20px;
-    font-weight: 400;
-    background: transparent;
-    border-bottom: 3px solid #50BE95;
-    border-right: 3px solid #50BE95;
-
-    border-top-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-
-    padding: 8px;
-    box-shadow: 2px 2px 6px grey;
-}
-.paragraph{
-    width: 90%;
-    height: 300px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 20px;
 }
 </style>

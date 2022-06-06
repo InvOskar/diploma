@@ -12,7 +12,7 @@
         </p>
         <the-scrollable-block>
             <div class="content">
-                <p class="paragraph"
+                <p class="context"
                     v-for="(paragraph, i) in article.content"
                     :key="i" 
                     :contenteditable="isContenteditable()"
@@ -85,7 +85,6 @@ export default {
             }
             articleService.updateRating(item).then((res) => {
                 this.isRated = true;
-                userService.updateRating(res.authorId);
             }).catch(() => {
                 this.isRated = false;
             })
@@ -119,6 +118,7 @@ export default {
             }
             return false;
         },
+
         updateTitle(title){
             this.newArticle.title = title;
         },
@@ -128,6 +128,7 @@ export default {
         updateParagraph(paragraph, i){
             this.newArticle.content[i] = paragraph;
         },
+
         saveArticle(){
             articleService.updateArticle(this.newArticle).then(res => {
                 gsap.from(".article", {duration: 1, opacity: 0});
@@ -187,12 +188,10 @@ export default {
 }
 .content{
     padding: 20px;
-
     gap: 20px;
-
     font-size: 26px;
 }
-.paragraph{
+.context{
     margin-bottom: 20px;
     text-indent: 40px;
 }
@@ -200,18 +199,15 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-
     gap: 100px;
 
     padding: 20px;
 
     font-size: 24px;
-
 }
 .assesment{
     display: flex;
     align-items: center;
-
     gap: 20px;
 
     float: right;
@@ -224,13 +220,12 @@ export default {
 }
 .rating{
     display: block;
-
     border-bottom: 1px solid #50BE95;
-
-    cursor: pointer;
-
     background: transparent;
     padding: 10px;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
 
     font-size: 24px;
     font-weight: bold;

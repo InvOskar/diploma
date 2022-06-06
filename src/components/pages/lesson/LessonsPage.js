@@ -23,10 +23,46 @@ export const lessonsPageText = {
     },
     KZ: {
         header: 'Сабақтар',
-        
+        createLesson: {
+            lang: 'Тілді таңдаңыз',
+            title: 'Сабақ құру',
+            lesson: 'Сабақ',
+            subject: 'Пән',
+            lessonTitle: 'Сабақтың тақырыбы',
+            lessonDescription: 'Сабақтың сипаттамасы',
+            createLesson: 'Растау',
+        },
+        lessonPage: {
+            author: 'Автор',
+            date: 'Күні',
+            subject: 'Пән',
+            edit: 'Редакциялау',
+            save: 'Сақтау',
+            lang: 'Тілі',
+            assesment: 'Бағалау',
+            comments: 'Пікірлер',
+        }
     },
     EN: {
         header: 'Lessons',
-        
+        createLesson: {
+            lang: 'Select language',
+            title: 'Create lesson',
+            lesson: 'Lesson',
+            subject: 'Subject',
+            lessonTitle: 'Lesson title',
+            lessonDescription: 'Lesson description',
+            createLesson: 'Publish lesson',
+        },
+        lessonPage: {
+            author: 'Author',
+            date: 'Date',
+            subject: 'Subject',
+            edit: 'Edit',
+            save: 'Save',
+            lang: 'Language',
+            assesment: 'Assessment',
+            comments: 'Comments',
+        }
     },
 }

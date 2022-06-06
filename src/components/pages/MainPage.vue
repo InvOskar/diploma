@@ -59,9 +59,7 @@ export default {
     font-weight: 700;
     font-size: 28px;
     line-height: 36px;
-
     color: #50BE95;
-
     letter-spacing: -0.02em;
 }
 .header{
@@ -75,7 +73,6 @@ export default {
     font-weight: 500;
     font-size: 24px;
     line-height: 116.82%;
-
     color: rgba(0, 0, 0, 0.5);
 
     margin-top: 40px;

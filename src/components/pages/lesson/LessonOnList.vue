@@ -26,21 +26,28 @@ export default {
             required:true
         }
     },
+
     data(){
         return{
             content: lessonsPageText.RU.lessonPage
         }
     },
+
     computed: {
         ...mapGetters(['getLanguage'])
     },
+
+    watch: {
+        getLanguage(newLang){
+            this.content = lessonsPageText[newLang].lessonPage;
+        }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 .block {
     border-bottom: 2px solid #50BE95;
-
     padding: 20px;
 
     display: flex;
@@ -61,8 +68,8 @@ export default {
     font-weight: 700;
 }
 .bottom-line {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     align-items: center;
     width: 80%;
 
@@ -73,7 +80,6 @@ export default {
 }
 .rating{
     float: right;
-
     width: 50px;
 
     display: flex;

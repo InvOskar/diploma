@@ -27,7 +27,6 @@ import { profilePageText } from './ProfilePage'
 import ArticleService from '../../../services/article.service'
 import UserService from '../../../services/user.service'
 import LessonService from '../../../services/lesson.service'
-import { gsap } from 'gsap'
 
 const articleService = new ArticleService();
 const lessonService = new LessonService();
@@ -104,23 +103,13 @@ export default {
         this.getItem();
     },
 
-    // mounted() {
-    //     gsap.from('.animate', {
-    //         delay: 2,
-    //         opacity: 0,
-    //         y: -300,
-    //         duration: 3,
-    //         ease: "elastic",
-    //     });
-    // },
-
     computed: {
         ...mapGetters(['getLanguage', 'isSignedUp'])
     },
 
     watch: {
         getLanguage(newLang){
-            this.content = profilePageText[newLang].articleList;
+            this.content = profilePageText[newLang].list;
         }
     },
 }

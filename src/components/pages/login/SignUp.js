@@ -16,11 +16,11 @@ export const signUpText = {
         email: 'Электрондық пошта',
         password: 'Пароль',
         firstName: 'Аты',
-        lastName: 'Фамилия',
+        lastName: 'Тегі',
         signIn: 'Тіркелу',
         dateOfBirth: 'Туған күні',
         workExperience: 'Жұмыс қызметі(жыл)',
-        currentWork: 'Ағымдағы жұмыс',
+        currentWork: 'Қазіргі жұмыс орны',
         signUp: 'Тіркелу',
     },
     EN: {

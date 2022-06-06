@@ -1,7 +1,7 @@
 <template>
     <div class="main_header">
         <div class="logo" @click="$router.push('/')">
-            ITeacher
+            <img src="@/assets/images/iteacher.png" alt="ITeacher">
         </div>
         <div class="menu">
             <div v-for="(item, index) in headerText.headerMenu" :key="index">
@@ -115,12 +115,15 @@ export default {
 }
 .logo{
     width: 40%;
-
     font-weight: 700;
     font-size: 32px;
 
     &:hover{
         cursor: pointer;
+    }
+
+    &>img{
+        width: 23%;
     }
 }
 .menu {
@@ -159,7 +162,6 @@ export default {
     width: 100px;
 
     border-radius: 9px;
-
     box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.25);
 
     display: flex;
@@ -168,9 +170,9 @@ export default {
     justify-content: space-evenly;
 
     position: absolute;
-
     margin-top: 16px;
     margin-left: -30px;
+
     font-weight: 700;
     font-size: 20px;
     line-height: 20px;
@@ -195,5 +197,8 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+}
+.lang-switch{
+    z-index: 1000;
 }
 </style>

@@ -25,7 +25,6 @@ import { mapGetters } from 'vuex'
 import TheScrollableBlock from '../../TheScrollableBlock.vue'
 import ArticleOnList from './ArticleOnList.vue'
 import ArticleService from '../../../services/article.service'
-import { gsap } from 'gsap'
 
 const articleService = new ArticleService();
 
@@ -43,12 +42,14 @@ export default {
         goToArticle(id){
             this.$router.push(`/article/${id}`);
         },
+
         getArticles(){
             articleService.getArticles()
                 .then(res => {
                     this.articles = res;
                 });
         },
+
         sort($event){
             if($event.id==0){
                 $event.isClicked ? 
@@ -64,6 +65,7 @@ export default {
                     this.articles.sort((a,b) =>{ return a.title.toLowerCase().localeCompare(b.title.toLowerCase()) })
             }
         },
+
         search($event){
             if($event!=''){
                 this.articles = this.articles.filter(article => {

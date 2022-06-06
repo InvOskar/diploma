@@ -1,20 +1,15 @@
 <template>
   <div class="main-wrapper" :style="{ transform: 'scale(' + ratio + ') translate(-50%, -50%)' }">
-    <lesson-view v-if="isLesson" />
-    <main-view v-else />
+    <main-view />
   </div>
 </template>
 
 <script>
 import MainView from "./views/MainView.vue";
-import LessonView from "./views/LessonView.vue";
 import { mapGetters } from "vuex";
 
 export default {
-  components: {
-    MainView,
-    LessonView
-  },
+  components: { MainView },
 
   data() {
     return {
@@ -36,6 +31,7 @@ export default {
         this.ratio = bh / sh;
       }
     },
+
     unmounted() {
       window.removeEventListener("resize", this.resize);
     },
@@ -80,7 +76,6 @@ img {
   font-size: 22px;
   animation: fadeIn 2s infinite linear;
 }
-
 @keyframes fadeIn {
   0% {
     opacity: 0.1;
@@ -97,20 +92,17 @@ img {
   overflow-y: hidden;
   overflow-x: scroll;
 }
-
 ::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
 }
-
 ::-webkit-scrollbar
 {
 	width: 8px;
 	background-color: #F5F5F5;
 }
-
 ::-webkit-scrollbar-thumb
 {
 	border-radius: 10px;
@@ -121,6 +113,7 @@ img {
 .create{
     text-align: center;
 }
+
 .__page-block{
     display: flex;
     flex-direction: column;
@@ -131,9 +124,45 @@ img {
 
     margin-top: 40px;
 }
+
 .empty-text {
     font-size: 30px;
     text-align: center;
     font-weight: bold;
+}
+
+input, textarea{
+    &::placeholder{
+        font-style: italic;
+    }
+}
+
+textarea{
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    font-weight: 400;
+    background: transparent;
+    border-bottom: 3px solid #50BE95;
+    border-right: 3px solid #50BE95;
+
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    padding: 8px;
+    box-shadow: 2px 2px 6px grey;
+}
+.paragraph{
+    width: 90%;
+    height: 300px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 20px;
 }
 </style>

@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import TheTopBar from '../TheTopBar.vue'
+import TheTopBar from '../../TheTopBar.vue'
 import { teachersPageText } from './TeachersPage.js'
 import { mapGetters } from 'vuex'
-import TheScrollableBlock from '../TheScrollableBlock.vue'
+import TheScrollableBlock from '../../TheScrollableBlock.vue'
 import TeacherOnList from './TeacherOnList.vue'
-import UserService from '../../services/user.service';
+import UserService from '../../../services/user.service';
 
 const userService = new UserService();
 

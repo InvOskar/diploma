@@ -20,6 +20,7 @@
 <script>
 import { commentPageText } from './CommentPage'
 import UserService from '../../../services/user.service'
+import { mapGetters } from 'vuex';
 
 const userService = new UserService();
 
@@ -65,8 +66,18 @@ export default {
         },
     },
 
+    computed: {
+        ...mapGetters(['getLanguage']),
+    },
+
     mounted() {
         this.getUser();
+    },
+
+    watch: {
+        getLanguage(newLang) {
+            this.content = commentPageText[newLang].theComment;
+        }
     },
 }
 </script>

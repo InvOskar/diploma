@@ -14,7 +14,7 @@ export const signInText = {
         email: 'Электрондық пошта',
         password: 'Пароль',
         signIn: 'Кіру',
-        forgotPassword: 'Парольді қалдырып көр?',
+        forgotPassword: 'Құпия сөзді ұмыттыңыз ба?',
         signUp: 'Тіркелу',
         teacher: 'Учитель',
         student: 'Студент',

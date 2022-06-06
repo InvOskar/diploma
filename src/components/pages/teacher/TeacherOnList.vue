@@ -21,15 +21,12 @@ export default {
 <style lang="scss" scoped>
 .block{
     border-bottom: 2px solid #50BE95;
-
     padding: 20px;
 
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 
-
     font-size: 20px;
-
 
     &:hover{
         cursor: pointer;

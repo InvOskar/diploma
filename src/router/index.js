@@ -20,7 +20,7 @@ const routes = [
   },
   {
     path: '/teachers',
-    component: () => import('../components/pages/TeachersPage.vue'),
+    component: () => import('../components/pages/teacher/TeachersPage.vue'),
   },
   {
     path: '/profile/:id',

@@ -42,13 +42,6 @@ class UserService {
             return user;
         });
     }
-    async updateRating(item){
-        return await axios.put(`${HOST}/user/rating`, item)
-        .then(res => {
-            let user = res.data;
-            return user;
-        });
-    }
 }
 
 export default UserService;

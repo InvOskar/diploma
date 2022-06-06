@@ -17,6 +17,7 @@ export default {
             default: '650px'
         }
     },
+
     mounted() {
         gsap.from('.scrollable', {
             delay: 0.5,
@@ -35,13 +36,10 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 20px;
-
     margin: auto;
-
     padding: 50px;
 
     box-shadow: 0px 7px 35px rgba(80, 190, 149, 0.5);
-
     border-radius: 30px;
 }
 </style>

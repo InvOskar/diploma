@@ -12,7 +12,7 @@
         </p>
         <the-scrollable-block>
             <div class="content">
-                <p class="paragraph"
+                <p class="context"
                     :contenteditable="isContenteditable()"
                     @input="updateDescription($event.target.innerHTML, i)"
                     v-html="lesson.description">
@@ -48,14 +48,12 @@
 <script>
 import TheScrollableBlock from '../../TheScrollableBlock.vue';
 import LessonService from '../../../services/lesson.service';
-import ArticleService from '../../../services/article.service';
 import UserService from '../../../services/user.service';
 import { gsap } from "gsap";
 import { mapGetters } from 'vuex';
 import { lessonsPageText } from './LessonsPage';
 import MainButton from '../../UI/MainButton.vue';
 
-const articleService = new ArticleService();
 const lessonService = new LessonService();
 const userService = new UserService();
 
@@ -71,8 +69,6 @@ export default {
             rating: null, 
             isRated: false,
             userId: null,
-            lessonsRating: [],
-            artclesRating: [],
         }
     },
 
@@ -87,19 +83,9 @@ export default {
             }
             lessonService.updateRating(item).then((res) => {
                 this.isRated = true;
-                let newRate = {
-                    id: res.authorId,
-                    newRating: this.getNewAuthorRating(),
-                }
-                // userService.updateRating(newRate);
             }).catch(() => {
                 this.isRated = false;
             })
-        },
-
-        getNewAuthorRating(){
-            let rating = (this.articlesRating.reduce((a, b) => a + b, 0) + this.lessonsRating.reduce((a, b) => a + b, 0)) / (this.articlesRating.length + this.lessonsRating.length);
-            return (rating+4.5)/2;
         },
 
         currentLesson() {
@@ -167,16 +153,6 @@ export default {
 
     updated() {
         this.newLesson = { ...this.lesson };
-        articleService.getArticlesByUserId(this.lesson.authorId).then((res) => {
-            res.forEach(item => {
-                this.articlesRating.push(item.rating);
-            });
-        });
-        lessonService.getLessonsByUserId(this.lesson.authorId).then((res) => {
-            res.forEach(item => {
-                this.lessonsRating.push(item.rating);
-            });
-        });
     },
 
     computed: {
@@ -208,12 +184,10 @@ export default {
 }
 .content{
     padding: 20px;
-
     gap: 20px;
-
     font-size: 26px;
 }
-.paragraph{
+.context{
     margin-bottom: 20px;
     text-indent: 40px;
 }
@@ -221,18 +195,15 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-
     gap: 100px;
 
     padding: 20px;
 
     font-size: 24px;
-
 }
 .assesment{
     display: flex;
     align-items: center;
-
     gap: 20px;
 
     float: right;
@@ -249,6 +220,7 @@ export default {
     border-bottom: 1px solid #50BE95;
 
     cursor: pointer;
+    transition: all 0.3s ease;
 
     background: transparent;
     padding: 10px;
