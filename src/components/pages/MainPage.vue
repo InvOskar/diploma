@@ -63,7 +63,7 @@ export default {
     letter-spacing: -0.02em;
 }
 .header{
-    font-weight: 900;
+    font-weight: 700;
     font-size: 45px;
     line-height: 45px;
     

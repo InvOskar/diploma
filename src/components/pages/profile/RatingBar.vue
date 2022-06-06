@@ -2,7 +2,7 @@
     <div class="score-bar">
     <svg class="progres" width="100%" height="100%" fill="#494875">
         <circle class="progres-circle" cx="25" cy="25" r="22" stroke-width="5" ref="progresCircle"  :style="getStyle"/>
-        <text x="50%" y="50%" text-anchor="middle" dy=".3em">{{rating}}</text>
+        <text x="50%" y="50%" text-anchor="middle" dy=".3em">{{rating.toFixed(2)}}</text>
     </svg>
     </div>
 </template>

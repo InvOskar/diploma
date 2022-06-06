@@ -55,6 +55,7 @@ export default {
   padding: 0;
   box-sizing: border-box;
   color: #2F4858;
+  font-family: 'Nunito', sans-serif;
 }
 
 .main-wrapper {
