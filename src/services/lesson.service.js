@@ -53,6 +53,13 @@ class LessonService {
             return lesson;
         });
     }
+    async getAvarageRating(userId){
+        return await axios.get(`${HOST}/lessons/rating/${userId}`)
+        .then(res => {
+            let rating = res.data;
+            return rating;
+        });
+    }
 }
 
 export default LessonService;

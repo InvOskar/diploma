@@ -3,7 +3,7 @@
         <p class="name">{{ teacher.lastName }} {{ teacher.firstName }}</p>
         <p>{{ teacher.dateOfBirth.split("-").reverse().join(".") }}</p>
         <p>{{ teacher.currentWork }}</p>
-        <p class="name">{{ teacher.rating }}</p>
+        <p class="name">{{ teacher.rating.toFixed(2) }}</p>
     </div>
 </template>
 

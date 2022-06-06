@@ -5,7 +5,7 @@
         </div>
         <p class="title">{{ user.firstName }} {{ user.lastName }}</p>
         <div class="rating">
-            <rating-bar :rating="+user.rating"></rating-bar>
+            <rating-bar :rating="+user.rating.toFixed(2)"></rating-bar>
         </div>
         <div class="underline">
             {{ content.email }}: 

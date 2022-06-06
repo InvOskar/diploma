@@ -53,6 +53,13 @@ class ArticleService {
             return article;
         });
     }
+    async getAvarageRating(userId){
+        return await axios.get(`${HOST}/articles/rating/${userId}`)
+        .then(res => {
+            let rating = res.data;
+            return rating;
+        });
+    }
 }
 
 export default ArticleService;

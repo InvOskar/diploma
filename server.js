@@ -264,6 +264,17 @@ app.put('/article/rating', (req, res, next) => {
     });
 })
 
+app.get('/articles/rating/:id', (req, res, next) => {
+    Article.find({authorId: req.params.id}, (err, articles) => {
+        let avarage = [];
+        articles.forEach(article => {
+            avarage.push(article.rating);
+        });
+        let avarageRating = avarage.reduce((a, b) => a + b, 0) / avarage.length;
+        res.json(avarageRating);
+    });
+})
+
 //lesson
 app.post('/lesson', (req, res, next) => {
     const lesson = new Lesson({
@@ -396,6 +407,17 @@ app.put('/lesson/rating', (req, res, next) => {
     });
 })
 
+app.get('/lessons/rating/:id', (req, res, next) => {
+    Lesson.find({authorId: req.params.id}, (err, lessons) => {
+        let avarage = [];
+        lessons.forEach(lesson => { 
+            avarage.push(lesson.rating);
+        });
+        let avarageRating = avarage.reduce((a, b) => a + b, 0) / avarage.length;
+        res.json(avarageRating);
+    });
+})
+
 //comment
 app.post('/comment', (req, res, next) => {
     const comment = new Comment({
@@ -445,6 +467,3 @@ app.delete('/comment/:id', (req, res, next) => {
         res.json(comment);
     });
 })
-
-
-

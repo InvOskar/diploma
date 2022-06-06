@@ -50,6 +50,7 @@
 <script>
 import TheScrollableBlock from '../../TheScrollableBlock.vue';
 import ArticleService from '../../../services/article.service';
+import LessonService from '../../../services/lesson.service';
 import UserService from '../../../services/user.service';
 import { gsap } from "gsap";
 import { mapGetters } from 'vuex';
@@ -57,6 +58,7 @@ import { articlesPageText } from './ArticlesPage';
 import MainButton from '../../UI/MainButton.vue';
 
 const articleService = new ArticleService();
+const lessonService = new LessonService();
 const userService = new UserService();
 
 export default {
@@ -71,6 +73,7 @@ export default {
             rating: null, 
             isRated: false,
             userId: null,
+            newRating: 4.5,
         }
     },
 
@@ -85,6 +88,15 @@ export default {
             }
             articleService.updateRating(item).then((res) => {
                 this.isRated = true;
+                articleService.getAvarageRating(this.article.authorId).then((res) => {
+                    res ? this.newRating += res : this.newRating += 4.5;
+                    
+                    lessonService.getAvarageRating(this.article.authorId).then((res) => {
+                        res ? this.newRating += res : this.newRating += 4.5;
+
+                        userService.updateRating({id: this.article.authorId, rating: this.newRating/3});
+                    })
+                })
             }).catch(() => {
                 this.isRated = false;
             })
