@@ -1,25 +1,19 @@
-export const articlesPageText = {
+export const commentPageText = {
     RU: {
-        header: 'Статьи',
-        emptyText: 'Статей нет',
-        createArticle: {
-            lang: 'Выберите язык',
-            title: 'Создать статью',
-            article: 'Статья',
-            articleTitle: 'Тема статьи',
-            articleSubtitle: 'Подзаголовок',
-            articleParagraph: 'Параграф',
-            addParagraph: 'Добавить параграф',
-            createArticle: 'Опубликовать статью',
-        },
-        articlePage: {
+        commentPage: {
+            commentsFor: 'Комментарии к',
+            lesson: 'уроку',
+            article: 'статье',
             author: 'Автор',
             date: 'Дата',
-            edit: 'Редактировать',
-            save: 'Сохранить',
-            lang: 'Язык',
-            assesment: 'Оценка',
-            comments: 'Комментарии',
+            rating: 'Рейтинг',
+            emptyText: 'Комментариев нет, будьте первым!',
+            addCommentPlaceholder: 'Введите комментарий',
+            addComment: 'Опубликовать',
+        },
+        theComment: {
+            delete: 'Удалить',
+            update: 'Обновить',
         }
     },
     KZ: {

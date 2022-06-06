@@ -1,24 +1,23 @@
 <template>
     <div class="my-profile">
-        <the-info-block :user="user" class="animate1"></the-info-block>
+        <the-info-block :user="user" class="animate1" />
         <div class="lists">
-            <the-articles-list :user="user" class="animate2"></the-articles-list>
-            <the-lessons-list :user="user" class="animate3"></the-lessons-list>
+            <the-list :user="user" :type="'article'" class="animate2" />
+            <the-list :user="user" :type="'lesson'" class="animate3" />
         </div>
     </div>
 </template>
 
 <script>
 import TheInfoBlock from './TheInfoBlock.vue'
-import TheArticlesList from './TheArticlesList.vue'
-import TheLessonsList from './TheLessonsList.vue'
+import TheList from './TheList.vue'
 import UserService from '../../../services/user.service'
 import { gsap } from 'gsap'
 
 const userService = new UserService();
 
 export default {
-    components: { TheInfoBlock, TheArticlesList, TheLessonsList },
+    components: { TheInfoBlock, TheList },
 
     data() { 
         return{

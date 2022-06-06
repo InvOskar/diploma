@@ -1,8 +1,14 @@
 export const profilePageText = {
     RU: {
-        articleList: {
-            title: 'Список статей',
-            emptyText: 'Статей нет',
+        list: {
+            title: {
+                article: 'Список статей',
+                lesson: 'Список уроков',
+            },
+            emptyText: {
+                article: 'Статей нет',
+                lesson: 'Уроков нет',
+            }
         },
         infoBlock: {
             dateOfBirth: 'Дата рождения',

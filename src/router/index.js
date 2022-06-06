@@ -39,6 +39,10 @@ const routes = [
     component: () => import('../components/pages/article/ArticlePage.vue'),
   },
   {
+    path: '/article/:id/comments',
+    component: () => import('../components/pages/comment/CommentPage.vue'),
+  },
+  {
     path: '/lesson/create',
     component: () => import('../components/pages/lesson/CreateLesson.vue'),
   },
@@ -50,6 +54,10 @@ const routes = [
     path: '/lesson/:id',
     component: () => import('../components/pages/lesson/LessonPage.vue'),
   },
+  {
+    path: '/lesson/:id/comments',
+    component: () => import('../components/pages/comment/CommentPage.vue'),
+  }
 ]
 
 const router = createRouter({

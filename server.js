@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const User = require('./src/models/User');
 const Article = require('./src/models/Article');
 const Lesson = require('./src/models/Lesson');
+const Comment = require('./src/models/Comment');
 const bcrypt = require('bcrypt');
 
 const app = express();
@@ -110,7 +111,7 @@ app.put('/user', (req, res, next) => {
 })
 
 app.put('/user/rating', (req, res, next) => {
-    User.findByIdAndUpdate(req.body.userId, {$set: {rating: req.body.rating}}, {new: true}, (err, user) => {
+    User.findByIdAndUpdate(req.body.id, {$set: {rating: req.body.newRating}}, {new: true}, (err, user) => {
         if(err) {
             res.send(err);
             next();
@@ -250,6 +251,7 @@ app.post('/lesson', (req, res, next) => {
     const lesson = new Lesson({
         title: req.body.title,
         description: req.body.description,
+        subject: req.body.subject,
         content: [],
         lang: req.body.lang,
         author: req.body.author,
@@ -270,16 +272,154 @@ app.post('/lesson', (req, res, next) => {
                 error: err
             })
         }
-        return res.status(200).json({
-            title: 'Success'
-        })
+        return res.status(200).json(lesson);
     });
     User.findByIdAndUpdate(req.body.authorId, {$push: {listOfLessons: lesson._id}}, {new: true}, (err, user) => {
         if(err) {
             console.log(err)
         }else{
-            console.log('success')
+            return lesson._id;
         }
     });
 })
+
+app.get('/lessons/', (req, res, next) => {
+    Lesson.find({}, (err, lessons) => {
+        if(err){
+            res.send(err);
+            next();
+        }
+        res.json(lessons);
+    });
+})
+
+app.get('/lesson/:id/', (req, res, next) => {
+    Lesson.findById(req.params.id)
+    .then(lesson => {
+        if(!lesson) { return res.status(404).end(); }
+        return res.status(200).json(lesson);
+    })
+    .catch(err => next(err));
+})
+
+app.get('/lessons/:id', (req, res, next) => {
+    Lesson.find({authorId: req.params.id}, (err, lessons) => {
+        if(err){
+            res.send(err);
+            next();
+        }
+        res.json(lessons);
+    });
+})
+
+app.delete('/lesson/:id', (req, res, next) => {
+    Lesson.findByIdAndRemove(req.params.id, (err, lesson) => {
+        if(err) {
+            res.send(err);
+            next();
+        }
+        User.findByIdAndUpdate(lesson.authorId, {$pull: {listOfLessons: lesson._id, ratedLessons: lesson._id}}, {new: true}, (err, user) => {
+            if(err) {
+                console.log(err)
+            }else{
+                console.log('success');
+            }
+        });
+        res.json(lesson);
+    });
+})
+
+app.put('/lesson/update', (req, res, next) => {
+    Lesson.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, lesson) => {
+        if(err) {
+            res.send(err);
+            next();
+        }
+        res.json(lesson);
+    });
+})
+
+app.put('/lesson/rating', (req, res, next) => {
+    let assesment = {
+        userId: req.body.userId,
+        assesment: req.body.rating
+    }
+    Lesson.findByIdAndUpdate(req.body.lessonId, {$push: {assesments: assesment }}, {new: true}, (err, lesson) => {
+        if(err) {
+            res.send(err);
+            next();
+        }
+        User.findByIdAndUpdate(req.body.userId, {$push: { ratedLessons: lesson._id }}, {new: true}, (err, user) => {
+            if(err) {
+                console.log(err)
+            }else{
+                console.log('success');
+            }
+        });
+        let assesments = [];
+        lesson.assesments.forEach(assesment => {
+            assesments.push(assesment.assesment);
+        });
+        let avarage = assesments.reduce((a, b) => a + b, 0) / assesments.length;
+        Lesson.findByIdAndUpdate(req.body.lessonId, {$set: {rating: avarage}}, {new: true}, (err, lesson) => {
+            if(err) {
+                res.send(err);
+                next();
+            }
+            res.json(lesson);
+        });
+    });
+})
+
+//comment
+app.post('/comment', (req, res, next) => {
+    const comment = new Comment({
+        content: req.body.content,
+        userId: req.body.userId,
+        userName: req.body.userName,
+        postId: req.body.postId,
+        date: req.body.date,
+    });
+    comment.save((err) => {
+        if(err) {
+            return res.status(400).json({
+                title: 'Error',
+                error: err
+            })
+        }
+        return res.status(200).json(comment);
+    });
+})
+
+app.get('/comments/:id', (req, res, next) => {
+    Comment.find({postId: req.params.id}, (err, comments) => {
+        if(err){
+            res.send(err);
+            next();
+        }
+        res.json(comments);
+    });
+})
+
+app.put('/comment/update', (req, res, next) => {
+    Comment.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, comment) => {
+        if(err) {
+            res.send(err);
+            next();
+        }
+        res.json(comment);
+    });
+})
+
+app.delete('/comment/:id', (req, res, next) => {
+    Comment.findByIdAndRemove(req.params.id, (err, comment) => {
+        if(err) {
+            res.send(err);
+            next();
+        }
+        res.json(comment);
+    });
+})
+
+
 

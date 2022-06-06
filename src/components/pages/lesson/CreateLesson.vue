@@ -19,6 +19,10 @@
                     :width="'90%'" :height="'300px'" 
                     :placeholder="`${ text.lessonTitle }`" 
                     v-model="title" />
+                <main-input class="subtitle" 
+                    :width="'90%'" :height="'300px'" 
+                    :placeholder="`${ text.subject }`" 
+                    v-model="subject" />
             </div>
             <div class="content">
                 <div class="paragraph">
@@ -56,8 +60,10 @@ export default {
             lang: '',
             title: '',
             description: '',
+            subject: '',
             languages: ["RU", "KZ", "EN"],
             error: '',
+            user: {},
         }
     },
 
@@ -85,6 +91,7 @@ export default {
                 let lesson = {
                     title: this.title,
                     description: this.description,
+                    subject: this.subject,
                     content: [],
                     author: author,
                     authorId: this.user._id,
@@ -93,10 +100,10 @@ export default {
                 }
                 lessonService.createLesson(lesson)
                     .then(res => {
-                        this.$router.push('/lesson/'+res.data._id);
+                        this.$router.push('/lesson/' + res._id);
                     })
                     .catch(err => {
-                        this.error = err.message;
+                        this.error = err;
                     })
             }
         }
@@ -108,7 +115,13 @@ export default {
 
     mounted() {
         this.lang = this.getLanguage;
-        
+        userService.getAuthUser()
+            .then(res => {
+                this.user = res;
+            })
+            .catch(err => {
+                this.error = err.message;
+            })
     }
 }
 </script>

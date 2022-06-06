@@ -1,19 +1,19 @@
 <template>
     <div class="article">
         <p class="title" 
-            :contenteditable="isContenteditable()" 
+            :contenteditable="isContenteditable()"
             @input="updateTitle($event.target.innerHTML)"
             v-html="article.title">
         </p>
-        <p class="subtitle" 
-            :contenteditable="isContenteditable()" 
+        <p class="subtitle"
+            :contenteditable="isContenteditable()"
             @input="updateSubtitle($event.target.innerHTML)"
             v-html="article.subtitle">
         </p>
         <the-scrollable-block>
             <div class="content">
-                <p class="paragraph" 
-                    v-for="(paragraph, i) in article.content" 
+                <p class="paragraph"
+                    v-for="(paragraph, i) in article.content"
                     :key="i" 
                     :contenteditable="isContenteditable()"
                     @input="updateParagraph($event.target.innerHTML, i)"
@@ -40,6 +40,10 @@
                 {{ i }}
             </div>
         </div>
+        <main-button class="comments-button"
+            @click="$router.push(`/article/${article._id}/comments`)">
+            {{ content.comments }}
+        </main-button>
     </div>
 </template>
 
@@ -79,8 +83,9 @@ export default {
                 userId: this.userId,
                 rating: i,
             }
-            articleService.updateRating(item).then(() => {
+            articleService.updateRating(item).then((res) => {
                 this.isRated = true;
+                userService.updateRating(res.authorId);
             }).catch(() => {
                 this.isRated = false;
             })
@@ -239,8 +244,12 @@ export default {
     background: #50BE95;
     color: #fff;
 }
-
 .rated{
     pointer-events: none;
+}
+.comments-button{
+    position: relative;
+    float: left;
+    left: 240px;
 }
 </style>

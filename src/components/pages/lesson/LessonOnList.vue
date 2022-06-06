@@ -2,20 +2,23 @@
     <div class="block">
         <div class="left">
             <div class="top-line">
-                <p class="topic"> lesson.title </p>
+                <p class="topic"> {{ lesson.title }} </p>
             </div>
             <div class="bottom-line">
-                <p> lesson.teacher </p>
-                <p> lesson.date </p>
-                <p> lesson.lang </p>
+                <p>{{ content.subject}}: {{ lesson.subject }}</p>
+                <p>{{ content.author }}: {{ lesson.author }}</p>
+                <p>{{ content.date }}: {{ lesson.date }}</p>
+                <p>{{ content.lang }}: {{ lesson.lang }}</p>
             </div>
         </div>
-        <div class="rating"> lesson.rating </div>
+        <div class="rating">{{ lesson.rating.toFixed(2) }}</div>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import { lessonsPageText } from './LessonsPage'
+
 export default {
     props:{
         lesson:{
@@ -25,7 +28,7 @@ export default {
     },
     data(){
         return{
-            
+            content: lessonsPageText.RU.lessonPage
         }
     },
     computed: {

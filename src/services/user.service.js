@@ -1,8 +1,5 @@
 import apiEnv from "../env/apiEnv";
 import axios from "axios";
-import ArticleService from "./article.service";
-
-const articleService = new ArticleService();
 
 const HOST = apiEnv.HOST
 
@@ -45,25 +42,13 @@ class UserService {
             return user;
         });
     }
-    // async updateRating(user){
-    //     let articlesRating = [];
-    //     articleService.getArticlesByUserId(user._id).then(articles => {
-    //         articles.forEach(article => {
-    //             articlesRating.push(article.rating);
-    //         });
-    //     });
-
-    //     // let newRating = 4.5 / ;
-    //     let item = {
-    //         userId: user.id,
-    //         rating: 4.5,
-    //     }
-    //     return await axios.put(`${HOST}/user/rating`, item)
-    //     .then(res => {
-    //         let user = res.data;
-    //         return user;
-    //     });
-    //}
+    async updateRating(item){
+        return await axios.put(`${HOST}/user/rating`, item)
+        .then(res => {
+            let user = res.data;
+            return user;
+        });
+    }
 }
 
 export default UserService;
