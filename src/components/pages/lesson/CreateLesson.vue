@@ -3,7 +3,7 @@
         <h1> {{ text.title }} </h1>
         <the-scrollable-block :width="'90%'" :height="'800px'">
             <div class="lang">
-                <p>{{ text.lang }}</p>
+                <p class="create">{{ text.lang }}</p>
                 <div>
                     <div v-for="language in languages" :key="language">
                         <input class="radio-input" 

@@ -17,6 +17,9 @@ export const lessonsPageText = {
             edit: 'Редактировать',
             save: 'Сохранить',
             lang: 'Язык',
+            link: 'Ссылка',
+            description: 'Описание',
+            lesson: 'Урок',
             assesment: 'Оценка',
             comments: 'Комментарии',
         }
@@ -39,6 +42,9 @@ export const lessonsPageText = {
             edit: 'Редакциялау',
             save: 'Сақтау',
             lang: 'Тілі',
+            link: 'Сілтеме',
+            description: 'Сипаттамасы',
+            lesson: 'Сабақ',
             assesment: 'Бағалау',
             comments: 'Пікірлер',
         }
@@ -61,6 +67,9 @@ export const lessonsPageText = {
             edit: 'Edit',
             save: 'Save',
             lang: 'Language',
+            link: 'Link',
+            description: 'Description',
+            lesson: 'Lesson',
             assesment: 'Assessment',
             comments: 'Comments',
         }

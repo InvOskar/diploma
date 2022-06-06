@@ -17,47 +17,37 @@ export const commentPageText = {
         }
     },
     KZ: {
-        header: 'Мақалалар',
-        emptyText: 'Мақалалар жоқ',
-        createArticle: {
-            lang: 'Тілді таңдаңыз',
-            title: 'Статьяны қосу',
-            article: 'Статья',
-            articleTitle: 'Статьяның темасы',
-            articleSubtitle: 'Подзаголовок',
-            articleParagraph: 'Параграф',
-            addParagraph: 'Параграфті қосу',
-            createArticle: 'Статьяны қосу',
-        },
-        articlePage: {
+        commentPage: {
+            commentsFor: 'Пікірлер',
+            lesson: 'сабаққа',
+            article: 'мақалаға',
             author: 'Автор',
             date: 'Күні',
-            edit: 'Өзгерту',
-            save: 'Сақтау',
-            lang: 'Тілі',
-            assesment: 'Баға',
+            rating: 'Рейтинг',
+            emptyText: 'Пікірлер жоқ, бірінші болыңыз!',
+            addCommentPlaceholder: 'Пікір енгізіңіз',
+            addComment: 'Жариялау',
+        },
+        theComment: {
+            delete: 'Жою',
+            update: 'Жаңарту',
         }
     },
     EN: {
-        header: 'Articles',
-        emptyText: 'No articles',
-        createArticle: {
-            lang: 'Select language',
-            title: 'Create article',
-            article: 'Article',
-            articleTitle: 'Article title',
-            articleSubtitle: 'Subtitle',
-            articleParagraph: 'Paragraph',
-            addParagraph: 'Add paragraph',
-            createArticle: 'Publish article',
-        },
-        articlePage: {
+        commentPage: {
+            commentsFor: 'Comments for',
+            lesson: 'lesson',
+            article: 'article',
             author: 'Author',
             date: 'Date',
-            edit: 'Edit',
-            save: 'Save',
-            lang: 'Language',
-            assesment: 'Assesment',
+            rating: 'Rating',
+            emptyText: 'No comments yet, be the first!',
+            addCommentPlaceholder: 'Enter comment',
+            addComment: 'Publish',
+        },
+        theComment: {
+            delete: 'Delete',
+            update: 'Update',
         }
     },
 }

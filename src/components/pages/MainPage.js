@@ -1,20 +1,20 @@
 export const mainPageText = {
     RU: {
-        preHeader: "Больше, чем e-learning",
-        headerText: "Цифровое обучение для каждого пользователя",
-        shadowText: "Разработка интерактивного образовательного контента для корпоративных нужд",
-        buttonText: "Оставить заявку",
+        preHeader: "ITeacher это просто и просто",
+        headerText: "Круг преподавателей и единомышленников в одном месте",
+        shadowText: "Обменивайтесь опытом с другими учителями, делитесь интересными материалами и обсуждайте разные темы",
+        buttonText: "Регистрация",
     },
     KZ: {
-        preHeader: "Больше, чем e-learning",
-        headerText: "Цифровое обучение для каждого пользователя",
-        shadowText: "Разработка интерактивного образовательного контента для корпоративных нужд",
-        buttonText: "Оставить заявку",
+        preHeader: "ITeacher қарапайым және қарапайым",
+        headerText: "Бір жерде оқытушылар мен пікірлестер тобы",
+        shadowText: "Басқа мұғалімдермен тәжірибе алмасыңыз, қызықты материалдармен бөлісіңіз және әртүрлі тақырыптарды талқылаңыз",
+        buttonText: "Тіркелу",
     },
     EN: {
-        preHeader: "More than e-learning",
-        headerText: "Digital learning for every user",
-        shadowText: "Development of interactive educational content for corporate needs",
-        buttonText: "Submit your application",
+        preHeader: "ITeacher is simple and simple",
+        headerText: "A circle of teachers and like-minded people in one place",
+        shadowText: "Exchange experiences with other teachers, share interesting materials and discuss different topics",
+        buttonText: "Registration",
     },
 }

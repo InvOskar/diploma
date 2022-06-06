@@ -5,7 +5,7 @@ const lessonSchema = new Schema({
     title: String,
     description: String,
     subject: String,
-    content: Array,
+    content: String,
     author: String,
     authorId: String,
     lang: String,

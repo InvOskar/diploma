@@ -32,6 +32,7 @@ app.post('/signup', (req, res, next) => {
         password: bcrypt.hashSync(req.body.password, 10),
         firstName: req.body.firstName,
         lastName: req.body.lastName,
+        profileImage: "",
         dateOfBirth: req.body.dateOfBirth,
         workExperience: req.body.workExperience,
         currentWork: req.body.currentWork,
@@ -102,6 +103,26 @@ app.get('/users', (req, res, next) => {
 
 app.put('/user', (req, res, next) => {
     User.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, user) => {
+        if(err) {
+            res.send(err);
+            next();
+        }
+        res.json(user);
+    });
+})
+
+app.put('/user/:id/image', (req, res, next) => {
+    User.findByIdAndUpdate(req.params.id, {profileImage: req.body.profileImage}, {new: true}, (err, user) => {
+        if(err) {
+            res.send(err);
+            next();
+        }
+        res.json(user);
+    });
+})
+
+app.put('/user/rating', (req, res, next) => {
+    User.findByIdAndUpdate(req.body.id, {rating: req.body.rating}, {new: true}, (err, user) => {
         if(err) {
             res.send(err);
             next();
@@ -190,6 +211,13 @@ app.delete('/article/:id', (req, res, next) => {
                 console.log('success');
             }
         });
+        Comment.deleteMany({postId: article._id}, (err, comment) => {
+            if(err) {
+                console.log(err)
+            }else{
+                console.log('success');
+            }
+        })
         res.json(article);
     });
 })
@@ -242,7 +270,7 @@ app.post('/lesson', (req, res, next) => {
         title: req.body.title,
         description: req.body.description,
         subject: req.body.subject,
-        content: [],
+        link: '',
         lang: req.body.lang,
         author: req.body.author,
         authorId: req.body.authorId,
@@ -315,6 +343,13 @@ app.delete('/lesson/:id', (req, res, next) => {
                 console.log('success');
             }
         });
+        Comment.deleteMany({postId: lesson._id}, (err, comment) => {
+            if(err) {
+                console.log(err)
+            }else{
+                console.log('success');
+            }
+        })
         res.json(lesson);
     });
 })

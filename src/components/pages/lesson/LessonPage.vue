@@ -1,21 +1,31 @@
 <template>
     <div class="article">
-        <p class="title" 
-            :contenteditable="isContenteditable()"
-            @input="updateTitle($event.target.innerHTML)"
-            v-html="lesson.title">
-        </p>
-        <p class="subtitle"
-            :contenteditable="isContenteditable()"
-            @input="updateSubtitle($event.target.innerHTML)"
-            v-html="lesson.subject">
-        </p>
+        <p class="title">{{ content.lesson }}</p>
         <the-scrollable-block>
+            <p class="lesson-title" 
+                :contenteditable="isContenteditable()"
+                @input="updateTitle($event.target.innerHTML)"
+                v-html="lesson.title">
+            </p>
+            <p class="subtitle"
+                :contenteditable="isContenteditable()"
+                @input="updateSubtitle($event.target.innerHTML)"
+                v-html="lesson.subject">
+            </p>
             <div class="content">
+                <p>{{ content.description }}:</p>
                 <p class="context"
                     :contenteditable="isContenteditable()"
                     @input="updateDescription($event.target.innerHTML, i)"
                     v-html="lesson.description">
+                </p>
+            </div>
+            <div class="content">
+                <p>{{ content.link }}:</p>
+                <p class="context link"
+                    :contenteditable="isContenteditable()"
+                    @input="updateLink($event.target.innerHTML, i)"
+                    v-html="lesson.link">
                 </p>
             </div>
         </the-scrollable-block>
@@ -95,6 +105,12 @@ export default {
             });
         },
 
+        isItLink(str){
+            if(str.includes('http')){
+                return true;
+            }
+            return false;
+        },
         checkIsAuthor(){
             if(this.isSignedUp){
                 userService.getAuthUser().then(res => {
@@ -125,6 +141,11 @@ export default {
         updateDescription(description){
             this.newLesson.description = description;
         },
+        updateLink(link){
+            if(link.includes('http') || link.includes('https')){
+                this.newLesson.link = link;
+            }
+        },
         saveLesson(){
             lessonService.updateLesson(this.newLesson).then(res => {
                 gsap.from(".article", {duration: 1, opacity: 0});
@@ -135,6 +156,11 @@ export default {
     mounted(){
         this.currentLesson();
         gsap.from(".title", {
+            duration: 2,
+            opacity: 0,
+            y: -500,
+        });
+        gsap.from(".lesson-title", {
             duration: 2,
             opacity: 0,
             x: -500,
@@ -168,13 +194,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title, .subtitle {
+.title{
     text-align: center;
 }
 .title{
     font-size: 43px;
     font-weight: bold;
-    margin-top: 40px;
+    padding: 40px 0;
+}
+.lesson-title{
+    font-size: 30px;
+    font-weight: bold;
 }
 .subtitle{
     font-size: 26px;
@@ -186,9 +216,15 @@ export default {
     padding: 20px;
     gap: 20px;
     font-size: 26px;
+
+    border: 1px solid grey;
+    border-radius: 30px;
+}
+.link{
+    text-decoration: underline;
 }
 .context{
-    margin-bottom: 20px;
+    padding: 20px 0;
     text-indent: 40px;
 }
 .info {
