@@ -1,8 +1,8 @@
 <template>
     <div class="block">
-        <div class="img">
+        <!-- <div class="img">
             <img src="@/assets/images/noImage.png">
-        </div>
+        </div> -->
         <p class="title">{{ user.firstName }} {{ user.lastName }}</p>
         <div class="rating">
             <rating-bar :rating="+user.rating"></rating-bar>
@@ -130,6 +130,10 @@ export default {
     box-shadow: 0px 7px 35px rgba(80, 190, 149, 0.5);
 
     border-radius: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .img{
     width: 100%;

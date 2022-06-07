@@ -40,7 +40,7 @@
                 {{ i }}
             </div>
         </div>
-        <main-button class="comments-button"
+        <main-button class="comments-button" v-if="isSignedUp"
             @click="$router.push(`/article/${article._id}/comments`)">
             {{ content.comments }}
         </main-button>
